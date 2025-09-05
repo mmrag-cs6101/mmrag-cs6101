@@ -14,21 +14,50 @@ from typing import Optional
 def run_command(cmd: str, check: bool = True, cwd: Optional[str] = None) -> subprocess.CompletedProcess:
     """Run a shell command and return the result"""
     print(f"🔧 Running: {cmd}")
-    result = subprocess.run(
-        cmd, 
-        shell=True, 
-        check=check, 
-        cwd=cwd,
-        capture_output=True,
-        text=True
-    )
-    
-    if result.returncode != 0 and check:
+    try:
+        result = subprocess.run(
+            cmd, 
+            shell=True, 
+            check=check, 
+            cwd=cwd,
+            capture_output=True,
+            text=True
+        )
+        
+        # Show output if there's useful information
+        if result.stdout and result.stdout.strip():
+            print(f"   ✓ {result.stdout.strip()}")
+        
+        return result
+        
+    except subprocess.CalledProcessError as e:
         print(f"❌ Command failed: {cmd}")
-        print(f"Error: {result.stderr}")
-        sys.exit(1)
+        print(f"   Return code: {e.returncode}")
+        if e.stdout:
+            print(f"   Stdout: {e.stdout.strip()}")
+        if e.stderr:
+            print(f"   Stderr: {e.stderr.strip()}")
+        
+        # Provide specific guidance for common errors
+        if "uv" in cmd and ("not found" in str(e) or e.returncode == 127):
+            print("\n💡 uv installation issue detected:")
+            print("   Try: pip install uv")
+            print("   Or: curl -LsSf https://astral.sh/uv/install.sh | sh")
+        elif "venv" in cmd:
+            print("\n💡 Virtual environment creation failed:")
+            print("   Check if Python is properly installed")
+            print(f"   Python version: {sys.version}")
+        
+        if check:
+            sys.exit(1)
+        return e
     
-    return result
+    except Exception as e:
+        print(f"❌ Unexpected error running command: {cmd}")
+        print(f"   Error: {str(e)}")
+        if check:
+            sys.exit(1)
+        return None
 
 def check_uv_installed() -> bool:
     """Check if uv is installed"""
@@ -76,23 +105,49 @@ def setup_project():
     print("🔄 Initializing uv project...")
     run_command("uv init --no-readme", check=False)  # Don't fail if already initialized
     
-    # Create virtual environment
+    # Create virtual environment (clear existing if present)
     print("🐍 Creating virtual environment with uv...")
-    run_command("uv venv")
+    venv_path = Path(".venv")
+    if venv_path.exists():
+        print("   ℹ️  Existing .venv found, recreating...")
+        run_command("uv venv --clear")
+    else:
+        run_command("uv venv")
     
-    # Install dependencies
-    print("📦 Installing dependencies...")
-    run_command("uv pip install -e .")
+    # Install package first (without dependencies to avoid timeout)
+    print("📦 Installing package structure...")
+    run_command("uv pip install --no-deps -e .")
     
-    # Install GPU support if CUDA is available
+    # Install core dependencies in batches to avoid timeout
+    print("📦 Installing core ML dependencies (this may take a few minutes)...")
+    
+    # Install PyTorch first (largest dependency)
+    print("   🔧 Installing PyTorch...")
+    run_command("uv add torch torchvision torchaudio", check=False)
+    
+    # Install transformers
+    print("   🔧 Installing Transformers...")
+    run_command("uv add transformers accelerate", check=False)
+    
+    # Install other dependencies
+    print("   🔧 Installing other dependencies...")
+    run_command("uv add pillow numpy pandas scikit-learn", check=False)
+    run_command("uv add faiss-cpu sentence-transformers", check=False)
+    run_command("uv add gradio streamlit fastapi uvicorn", check=False)
+    
+    # Check for CUDA and install GPU support
+    print("🔍 Checking for CUDA support...")
     try:
         import torch
         if torch.cuda.is_available():
             print("🚀 CUDA detected, installing GPU support...")
-            run_command("uv pip install faiss-gpu --force-reinstall")
+            run_command("uv add faiss-gpu --force-reinstall", check=False)
             print("✅ GPU support installed")
+        else:
+            print("ℹ️  CUDA not detected, using CPU-only versions")
     except ImportError:
-        print("⚠️  PyTorch not yet installed, GPU support will be checked later")
+        print("⚠️  PyTorch not yet available, skipping GPU check")
+        print("   💡 Run './scripts/dev-workflow.sh gpu' later to add GPU support")
     
     # Install development dependencies
     print("🛠️  Installing development dependencies...")
