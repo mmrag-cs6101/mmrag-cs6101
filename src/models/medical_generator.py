@@ -222,15 +222,16 @@ class MedicalAnswerGenerator:
             # Move to device
             inputs = {k: v.to(self.device) for k, v in inputs.items()}
             
-            # Generation parameters
+            # Generation parameters (avoid pad_token_id conflicts)
             generation_kwargs = {
                 'max_length': self.max_length,
                 'num_beams': self.num_beams,
                 'early_stopping': True,
                 'temperature': temperature,
                 'do_sample': do_sample,
-                'pad_token_id': self.processor.tokenizer.pad_token_id,
             }
+            
+            # Don't add pad_token_id - let the model handle it automatically
             
             # Generate answer
             with torch.no_grad():
@@ -265,6 +266,9 @@ class MedicalAnswerGenerator:
                 'answer': "I apologize, but I encountered an error while analyzing this medical image. Please try again or consult with a medical professional.",
                 'raw_answer': "",
                 'confidence': 0.0,
+                'query': query,
+                'enhanced_query': query,
+                'retrieved_context_used': len(retrieved_context) if retrieved_context else 0,
                 'error': str(e)
             }
     
