@@ -205,7 +205,7 @@ class LocalRAGAnything:
         try:
             logger.info(f"Processing file: {file_path}")
             
-            result = await self.rag_anything.ainsert(
+            result = await self.rag_anything.process_document_complete(
                 file_path=str(file_path),
                 parse_method=parse_method,
                 **kwargs
@@ -241,8 +241,8 @@ class LocalRAGAnything:
         try:
             logger.info(f"Processing directory: {directory_path}")
             
-            result = await self.rag_anything.abatch_insert(
-                dir_path=str(directory_path),
+            result = await self.rag_anything.process_folder_complete(
+                folder_path=str(directory_path),
                 recursive=recursive,
                 **kwargs
             )
