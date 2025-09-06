@@ -488,8 +488,13 @@ RECOMMENDED_VISION_MODELS = {
         "load_in_4bit": True,
         "max_length": 2048
     },
-    "internvl2": {
+    "internvl2-2b": {
         "model_name": "OpenGVLab/InternVL2-2B",
+        "load_in_4bit": False,
+        "max_length": 2048
+    },
+    "moondream": {
+        "model_name": "vikhyatk/moondream2",  # Lightweight vision model (unrestricted)
         "load_in_4bit": False,
         "max_length": 2048
     }

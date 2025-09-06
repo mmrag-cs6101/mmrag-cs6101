@@ -95,33 +95,36 @@ asyncio.run(main())
 ```python
 rag = create_local_rag_anything(model_preset="fast")
 ```
-- **LLM**: Phi-3 (3.8B parameters)
+- **LLM**: Qwen2-1.5B-Instruct (fast and unrestricted)
 - **Vision**: LLaVA-1.5-7B 
 - **Embeddings**: BGE-small (384 dimensions)
-- **Memory**: ~4-6GB GPU
-- **Speed**: Fast inference
+- **Memory**: ~2-4GB GPU
+- **Speed**: Very fast inference
+- **No Authentication**: All models are publicly available
 
 ### Balanced Preset (Default)
 **Best for**: Production use with good quality/performance trade-off
 ```python
 rag = create_local_rag_anything(model_preset="balanced")
 ```
-- **LLM**: Mistral-7B-Instruct
+- **LLM**: Gemma-2B-IT (Google, unrestricted)
 - **Vision**: LLaVA-1.5-7B
 - **Embeddings**: BGE-base (768 dimensions)
-- **Memory**: ~8-12GB GPU
-- **Speed**: Moderate inference
+- **Memory**: ~4-8GB GPU
+- **Speed**: Good balance of speed and quality
+- **No Authentication**: All models are publicly available
 
 ### Quality Preset
 **Best for**: High-quality results, research applications
 ```python
 rag = create_local_rag_anything(model_preset="quality")
 ```
-- **LLM**: Llama2-7B-Chat
-- **Vision**: LLaVA-1.5-13B
+- **LLM**: Mistral-7B-Instruct-v0.3 (unrestricted version)
+- **Vision**: LLaVA-1.5-7B
 - **Embeddings**: BGE-large (1024 dimensions)
-- **Memory**: ~14-20GB GPU
+- **Memory**: ~8-14GB GPU
 - **Speed**: Slower but high quality
+- **No Authentication**: Uses unrestricted Mistral version
 
 ### Medical Preset
 **Best for**: Medical documents and clinical applications
@@ -131,10 +134,11 @@ rag = create_local_rag_anything(model_preset="medical")
 from src.local_models import MedicalRAGAnything
 rag = MedicalRAGAnything()
 ```
-- **LLM**: Mistral-7B-Instruct (medical-optimized)
+- **LLM**: Gemma-2B-IT (medical-optimized and unrestricted)
 - **Vision**: LLaVA-1.5-7B
 - **Embeddings**: BGE-base with medical preprocessing
 - **Features**: Medical abbreviation expansion, clinical disclaimers
+- **No Authentication**: All models are publicly available
 
 ## 🔧 Custom Configuration
 

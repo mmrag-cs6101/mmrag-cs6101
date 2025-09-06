@@ -459,28 +459,28 @@ def create_local_rag_anything(
     # Predefined model presets
     presets = {
         "fast": {
-            "llm_model": "phi-3",
+            "llm_model": "qwen-1.8b",  # Fast and unrestricted
             "vision_model": "llava-1.5-7b",
             "embedding_model": "bge-small",
             "load_in_4bit": False
         },
         "balanced": {
-            "llm_model": "mistral-7b",
+            "llm_model": "gemma-2b",  # Good balance and unrestricted
             "vision_model": "llava-1.5-7b", 
             "embedding_model": "bge-base",
-            "load_in_4bit": True
+            "load_in_4bit": False
         },
         "quality": {
-            "llm_model": "llama2-7b",
-            "vision_model": "llava-1.5-13b",
+            "llm_model": "mistral-7b",  # Now uses unrestricted v0.3
+            "vision_model": "llava-1.5-7b",
             "embedding_model": "bge-large",
             "load_in_4bit": True
         },
         "medical": {
-            "llm_model": "mistral-7b",
+            "llm_model": "gemma-2b",  # Medical optimized and unrestricted
             "vision_model": "llava-1.5-7b",
             "embedding_model": "bge-base",
-            "load_in_4bit": True,
+            "load_in_4bit": False,
             "medical_mode": True
         }
     }

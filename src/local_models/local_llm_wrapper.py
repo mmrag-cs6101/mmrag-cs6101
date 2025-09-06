@@ -406,12 +406,12 @@ class LocalLLMManager:
 # Pre-configured model configurations
 RECOMMENDED_MODELS = {
     "mistral-7b": {
-        "model_name": "mistralai/Mistral-7B-Instruct-v0.1",
+        "model_name": "mistralai/Mistral-7B-Instruct-v0.3",  # Updated to unrestricted version
         "load_in_4bit": True,
         "max_length": 4096
     },
     "llama2-7b": {
-        "model_name": "meta-llama/Llama-2-7b-chat-hf",
+        "model_name": "NousResearch/Llama-2-7b-chat-hf",  # Community version (unrestricted)
         "load_in_4bit": True,
         "max_length": 4096
     },
@@ -424,6 +424,16 @@ RECOMMENDED_MODELS = {
         "model_name": "microsoft/Phi-3-mini-4k-instruct",
         "load_in_4bit": False,  # Phi-3 is small enough
         "max_length": 4096
+    },
+    "gemma-2b": {
+        "model_name": "google/gemma-2b-it",  # Gemma 2B (unrestricted)
+        "load_in_4bit": False,
+        "max_length": 2048
+    },
+    "qwen-1.8b": {
+        "model_name": "Qwen/Qwen2-1.5B-Instruct",  # Qwen (unrestricted and fast)
+        "load_in_4bit": False,
+        "max_length": 2048
     }
 }
 
