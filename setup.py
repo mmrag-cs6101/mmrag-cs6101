@@ -110,7 +110,7 @@ def setup_project():
     venv_path = Path(".venv")
     if venv_path.exists():
         print("   ℹ️  Existing .venv found, recreating...")
-        run_command("uv venv --clear")
+        run_command("uv venv")
     else:
         run_command("uv venv")
     
@@ -151,7 +151,7 @@ def setup_project():
     
     # Install development dependencies
     print("🛠️  Installing development dependencies...")
-    run_command("uv pip install -e .[dev]")
+    run_command("uv add --dev pytest black isort flake8 mypy pre-commit", check=False)
     
     print("✅ Project setup completed!")
 
@@ -159,12 +159,18 @@ def setup_development_tools():
     """Setup development tools and pre-commit hooks"""
     print("🔧 Setting up development tools...")
     
-    # Install pre-commit hooks
+    # Install pre-commit hooks (only if pre-commit is available)
     try:
-        run_command("pre-commit install")
-        print("✅ Pre-commit hooks installed")
-    except subprocess.CalledProcessError:
-        print("⚠️  Pre-commit hooks installation failed (optional)")
+        # First check if pre-commit is installed
+        result = run_command("uv run pre-commit --version", check=False)
+        if result and result.returncode == 0:
+            run_command("uv run pre-commit install")
+            print("✅ Pre-commit hooks installed")
+        else:
+            print("⚠️  Pre-commit not available, skipping hooks setup")
+            print("   💡 Run 'uv add --dev pre-commit' then 'uv run pre-commit install'")
+    except Exception:
+        print("⚠️  Pre-commit hooks installation skipped (pre-commit not installed yet)")
     
     # Create .env file if it doesn't exist
     env_file = Path(".env")

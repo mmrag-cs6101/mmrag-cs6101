@@ -15,6 +15,11 @@ faiss-cpu>=1.7.4
 # faiss-gpu>=1.7.4  # Uncomment for GPU version
 sentence-transformers>=2.2.2
 
+# 🔥 NEW: Local RAG-Anything Dependencies
+lightrag-hku>=0.1.0
+mineru[core]>=0.1.0
+bitsandbytes>=0.41.0  # For model quantization
+
 # Medical Data Processing
 pydicom>=2.4.3
 nibabel>=5.1.0

@@ -2,14 +2,29 @@
 
 A medical-focused multimodal Retrieval-Augmented Generation system that combines medical image analysis with text-based knowledge retrieval to answer clinical questions.
 
-## 🏥 Features
+## 🚀 NEW: Local RAG-Anything Integration
 
+We've successfully integrated RAG-Anything with **local open-source models**, eliminating the need for API keys while providing enterprise-grade privacy and control.
+
+### ✨ Key Features
+
+**Original Medical RAG Components:**
 - **Medical Image Understanding**: CLIP-based encoding with medical domain adaptations
 - **Medical Text Processing**: Specialized preprocessing for medical terminology and abbreviations
 - **Knowledge Retrieval**: FAISS-powered efficient similarity search for images and texts
 - **Answer Generation**: BLIP-based multimodal answer generation with medical context
 - **Modality Support**: Chest X-rays, CT scans, MRI, histology, and other medical images
 - **Clinical Context**: Medical abbreviation expansion, anatomy standardization, and clinical disclaimers
+
+**NEW: Local RAG-Anything Features:**
+- 🔒 **Privacy-First**: All models run locally, no data sent to external APIs
+- 🌐 **Enterprise Ready**: Full document processing (PDF, images, tables, equations)
+- 🧠 **Local LLMs**: Mistral, Llama, Phi-3, and other open-source models
+- 👁️ **Local Vision**: LLaVA, InternVL for image understanding
+- 📊 **Local Embeddings**: BGE, E5 models for semantic search
+- ⚕️ **Medical Specialization**: Domain-specific processing for medical documents
+- 🎛️ **Flexible Presets**: "fast", "balanced", "quality", "medical" configurations
+- 💾 **GPU Optimization**: 4-bit/8-bit quantization for memory efficiency
 
 ## 🚀 Quick Start
 
@@ -82,6 +97,73 @@ pip install -r requirements.txt  # This will be much slower
 
 ### Basic Usage
 
+#### 🔥 NEW: Local RAG-Anything (Recommended)
+
+```python
+from src.local_models import create_local_rag_anything
+
+# Create local RAG system (no API keys needed!)
+rag = create_local_rag_anything(
+    working_dir="./my_rag_storage",
+    model_preset="balanced"  # Uses Mistral-7B + LLaVA + BGE
+)
+
+# Initialize 
+await rag.initialize()
+
+# Process any document type
+await rag.insert_file("medical_report.pdf")  # PDFs
+await rag.insert_file("chest_xray.jpg")     # Images  
+await rag.insert_directory("./medical_docs") # Batch processing
+
+# Query with natural language
+response = await rag.query("What does this report say about the patient's condition?")
+print(response)
+
+# Multimodal queries
+multimodal_content = [
+    {
+        "type": "image", 
+        "img_path": "chest_xray.jpg"
+    },
+    {
+        "type": "table",
+        "table_data": "Patient,Age,Condition\nJohn,65,Pneumonia"
+    }
+]
+
+response = await rag.query(
+    query="Analyze the chest X-ray and patient data",
+    multimodal_content=multimodal_content
+)
+```
+
+#### 🏥 Medical Specialized RAG
+
+```python
+from src.local_models import MedicalRAGAnything
+
+# Medical domain specialization
+medical_rag = MedicalRAGAnything(
+    working_dir="./medical_rag_storage",
+    model_preset="medical"  # Optimized for medical content
+)
+
+await medical_rag.initialize()
+
+# Process medical documents with metadata
+await medical_rag.insert_medical_document(
+    file_path="patient_report.pdf",
+    document_type="clinical_notes", 
+    patient_id="12345"
+)
+
+# Medical queries with domain knowledge
+response = await medical_rag.query("What is the differential diagnosis based on these symptoms?")
+```
+
+#### Original Medical RAG (Legacy)
+
 ```python
 from src.medical_rag import MedicalMultimodalRAG
 from PIL import Image
@@ -129,7 +211,20 @@ print(f"Confidence: {result['confidence']}")
 
 ## 🧪 Testing
 
-Run the comprehensive test suite:
+### Local RAG-Anything Tests
+
+```bash
+# Quick model integration check
+python test_local_rag_integration.py --quick
+
+# Full integration test with model loading
+python test_local_rag_integration.py --full
+
+# Run comprehensive demo
+python examples/local_rag_anything_demo.py --preset fast
+```
+
+### Original Medical RAG Tests
 
 ```bash
 # With uv (recommended)
@@ -139,7 +234,17 @@ uv run python test_medical_rag.py
 python test_medical_rag.py
 ```
 
-This will test all components:
+**Local RAG-Anything Test Coverage:**
+- ✅ Local LLM Models (Mistral, Llama, Phi-3)
+- ✅ Local Vision Models (LLaVA, InternVL)
+- ✅ Local Embedding Models (BGE, E5)
+- ✅ RAG-Anything Integration
+- ✅ Document Processing (PDF, images, tables)
+- ✅ Multimodal Queries
+- ✅ Medical Domain Specialization
+- ✅ Model Presets and Configurations
+
+**Original Medical RAG Test Coverage:**
 - ✅ Medical Text Preprocessor
 - ✅ Medical Image Encoder  
 - ✅ Medical Knowledge Retriever
@@ -198,9 +303,15 @@ uv pip freeze > requirements.txt
 ## 📁 Project Structure
 
 ```
-muRAG/
+mmrag-cs6101/
 ├── src/
-│   ├── models/
+│   ├── local_models/              # 🔥 NEW: Local RAG-Anything Integration
+│   │   ├── __init__.py
+│   │   ├── local_llm_wrapper.py   # Local LLM models (Mistral, Llama, Phi-3)
+│   │   ├── local_vision_wrapper.py # Local vision models (LLaVA, InternVL)
+│   │   ├── local_embedding_wrapper.py # Local embeddings (BGE, E5)
+│   │   └── local_rag_anything.py  # Complete RAG-Anything integration
+│   ├── models/                    # Original Medical RAG
 │   │   ├── medical_encoder.py      # CLIP-based medical image encoder
 │   │   ├── medical_retriever.py    # FAISS-based knowledge retriever
 │   │   └── medical_generator.py    # BLIP-based answer generator
@@ -210,12 +321,22 @@ muRAG/
 │   ├── evaluation/                 # Evaluation metrics (future)
 │   ├── demo/                       # Web demo interface (future)
 │   └── medical_rag.py             # Main integrated system
+├── RAG-Anything/                  # 🔥 RAG-Anything submodule
+│   ├── raganything/
+│   │   ├── config.py
+│   │   ├── query.py
+│   │   ├── modalprocessors.py
+│   │   └── processor.py
+│   └── examples/
+├── examples/
+│   └── local_rag_anything_demo.py # 🔥 Comprehensive local RAG demo
 ├── data/                          # Dataset storage
 ├── checkpoints/                   # Model weights
 ├── experiments/                   # Experiment logs
 ├── tests/                        # Unit tests
-├── requirements.txt              # Dependencies
-├── test_medical_rag.py          # Comprehensive test suite
+├── requirements.txt              # Dependencies  
+├── test_medical_rag.py          # Original test suite
+├── test_local_rag_integration.py # 🔥 Local RAG integration tests
 └── README.md                    # This file
 ```
 
@@ -310,6 +431,59 @@ uv pip install -e .[dev]
 medical_rag = MedicalMultimodalRAG(
     device="cuda",
     cache_dir="./cache"
+)
+```
+
+### 🎛️ Local Model Presets
+
+The Local RAG-Anything system includes predefined model configurations:
+
+```python
+# Fast preset - for development and testing
+rag = create_local_rag_anything(
+    model_preset="fast",
+    # Uses: Phi-3 + LLaVA-7B + BGE-small
+    # Memory: ~4-6GB GPU
+    # Speed: Fast inference
+)
+
+# Balanced preset - good quality/performance trade-off  
+rag = create_local_rag_anything(
+    model_preset="balanced", 
+    # Uses: Mistral-7B + LLaVA-7B + BGE-base
+    # Memory: ~8-12GB GPU
+    # Speed: Moderate inference
+)
+
+# Quality preset - best results
+rag = create_local_rag_anything(
+    model_preset="quality",
+    # Uses: Llama2-7B + LLaVA-13B + BGE-large
+    # Memory: ~14-20GB GPU  
+    # Speed: Slower but high quality
+)
+
+# Medical preset - optimized for medical documents
+rag = create_local_rag_anything(
+    model_preset="medical",
+    # Medical-specific preprocessing
+    # Expanded medical abbreviations
+    # Clinical disclaimer injection
+)
+```
+
+### 🔧 Custom Model Configuration
+
+```python
+# Custom configuration
+rag = create_local_rag_anything(
+    working_dir="./custom_rag",
+    llm_model="mistralai/Mistral-7B-Instruct-v0.1",
+    vision_model="llava-hf/llava-1.5-13b-hf", 
+    embedding_model="BAAI/bge-large-en-v1.5",
+    load_in_4bit=True,  # Enable quantization
+    device="cuda",
+    cache_dir="./model_cache"
 )
 ```
 
