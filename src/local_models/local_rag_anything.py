@@ -160,7 +160,9 @@ class LocalRAGAnything:
                     embedding_dim=self.embedding_dim,
                     max_token_size=8192,
                     func=self.embedding_func
-                )
+                ),
+                # Only use basic supported parameters
+                enable_llm_cache=True
             )
             
             # Initialize storage
@@ -205,10 +207,17 @@ class LocalRAGAnything:
         try:
             logger.info(f"Processing file: {file_path}")
             
+            # Filter out arguments that might not be supported by the parser
+            supported_kwargs = {}
+            supported_args = {'chunk_size', 'overlap', 'max_tokens', 'batch_size', 'force_reparse'}
+            for key, value in kwargs.items():
+                if key in supported_args:
+                    supported_kwargs[key] = value
+            
             result = await self.rag_anything.process_document_complete(
                 file_path=str(file_path),
                 parse_method=parse_method,
-                **kwargs
+                **supported_kwargs
             )
             
             logger.info(f"✅ File processed successfully: {file_path}")
@@ -241,10 +250,17 @@ class LocalRAGAnything:
         try:
             logger.info(f"Processing directory: {directory_path}")
             
+            # Filter out arguments that might not be supported by the parser
+            supported_kwargs = {}
+            supported_args = {'chunk_size', 'overlap', 'max_tokens', 'batch_size', 'force_reparse'}
+            for key, value in kwargs.items():
+                if key in supported_args:
+                    supported_kwargs[key] = value
+            
             result = await self.rag_anything.process_folder_complete(
                 folder_path=str(directory_path),
                 recursive=recursive,
-                **kwargs
+                **supported_kwargs
             )
             
             logger.info(f"✅ Directory processed successfully: {directory_path}")
@@ -439,7 +455,7 @@ class MedicalRAGAnything(LocalRAGAnything):
 
 def create_local_rag_anything(
     working_dir: str = "./rag_storage",
-    model_preset: str = "balanced",
+    model_preset: str = "fast",  # Use fastest preset to avoid timeouts
     medical_mode: bool = False,
     **kwargs
 ) -> LocalRAGAnything:
@@ -459,16 +475,16 @@ def create_local_rag_anything(
     # Predefined model presets
     presets = {
         "fast": {
-            "llm_model": "qwen-1.8b",  # Fast and unrestricted
+            "llm_model": "qwen-0.5b",  # Ultra-fast tiny model for timeout avoidance
             "vision_model": "llava-1.5-7b",
             "embedding_model": "bge-small",
-            "load_in_4bit": False
+            "load_in_4bit": True  # Force 4-bit quantization to reduce GPU memory by ~75%
         },
         "balanced": {
             "llm_model": "gemma-2b",  # Good balance and unrestricted
             "vision_model": "llava-1.5-7b", 
             "embedding_model": "bge-base",
-            "load_in_4bit": False
+            "load_in_4bit": True  # Force 4-bit quantization to reduce GPU memory
         },
         "quality": {
             "llm_model": "mistral-7b",  # Now uses unrestricted v0.3
@@ -480,7 +496,7 @@ def create_local_rag_anything(
             "llm_model": "gemma-2b",  # Medical optimized and unrestricted
             "vision_model": "llava-1.5-7b",
             "embedding_model": "bge-base",
-            "load_in_4bit": False,
+            "load_in_4bit": True,  # Force 4-bit quantization for memory efficiency
             "medical_mode": True
         }
     }

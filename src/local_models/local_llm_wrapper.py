@@ -7,6 +7,7 @@ import os
 import torch
 from typing import List, Dict, Any, Optional, Union
 import logging
+import gc
 from pathlib import Path
 from transformers import (
     AutoModelForCausalLM, 
@@ -33,9 +34,9 @@ class LocalLLMWrapper:
         device: str = "auto",
         load_in_4bit: bool = False,
         load_in_8bit: bool = False,
-        max_length: int = 2048,
-        temperature: float = 0.7,
-        top_p: float = 0.9,
+        max_length: int = 1024,  # Reduced for faster generation
+        temperature: float = 0.1,  # Ultra-low temperature for fastest, most deterministic responses
+        top_p: float = 0.8,  # Slightly more focused sampling
         do_sample: bool = True,
         cache_dir: Optional[str] = None
     ):
@@ -263,7 +264,7 @@ class LocalLLMWrapper:
                 max_length=self.max_length // 2  # Reserve space for output
             ).to(self.device)
             
-            # Generation parameters
+            # Generation parameters - filter out non-generation kwargs
             gen_kwargs = {
                 "max_length": max_length or self.max_length,
                 "temperature": temperature or self.temperature,
@@ -271,9 +272,32 @@ class LocalLLMWrapper:
                 "do_sample": do_sample if do_sample is not None else self.do_sample,
                 "pad_token_id": self.tokenizer.pad_token_id,
                 "eos_token_id": self.tokenizer.eos_token_id,
-                "early_stopping": True
+                # Ultra-fast generation settings
+                "max_new_tokens": 64,  # Even more reduced for ultra-fast generation
+                "use_cache": True,  # Enable KV cache for faster generation
+                "num_beams": 1,  # Use greedy decoding for speed
+                "do_sample": False,  # Disable sampling for deterministic, faster generation
+                "early_stopping": True,
+                "repetition_penalty": 1.0,  # Disable repetition penalty for speed
+                "length_penalty": 1.0  # Disable length penalty for speed
             }
-            gen_kwargs.update(kwargs)
+            
+            # Only add valid generation parameters from kwargs
+            valid_gen_params = {
+                "max_new_tokens", "min_length", "min_new_tokens", 
+                "num_beams", "num_beam_groups", "penalty_alpha",
+                "use_cache", "typical_p", "epsilon_cutoff", "eta_cutoff",
+                "diversity_penalty", "repetition_penalty", "encoder_repetition_penalty",
+                "length_penalty", "no_repeat_ngram_size", "bad_words_ids",
+                "force_words_ids", "renormalize_logits", "constraints",
+                "forced_bos_token_id", "forced_eos_token_id", "remove_invalid_values",
+                "exponential_decay_length_penalty", "suppress_tokens", 
+                "begin_suppress_tokens", "forced_decoder_ids"
+            }
+            
+            for key, value in kwargs.items():
+                if key in valid_gen_params:
+                    gen_kwargs[key] = value
             
             # Generate response
             with torch.no_grad():
@@ -296,10 +320,20 @@ class LocalLLMWrapper:
             
             response = response.strip()
             
+            # Aggressive memory cleanup after generation
+            del outputs, generated_tokens, inputs
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            gc.collect()
+            
             return response
             
         except Exception as e:
             logger.error(f"Error generating response: {e}")
+            # Cleanup on error as well
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            gc.collect()
             return f"Error: Failed to generate response - {str(e)}"
     
     async def agenerate(
@@ -434,6 +468,11 @@ RECOMMENDED_MODELS = {
         "model_name": "Qwen/Qwen2-1.5B-Instruct",  # Qwen (unrestricted and fast)
         "load_in_4bit": False,
         "max_length": 2048
+    },
+    "qwen-0.5b": {
+        "model_name": "Qwen/Qwen2-0.5B-Instruct",  # Ultra-fast tiny model for testing
+        "load_in_4bit": False,
+        "max_length": 1024
     }
 }
 
