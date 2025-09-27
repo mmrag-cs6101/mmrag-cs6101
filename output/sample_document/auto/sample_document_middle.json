@@ -1,0 +1,798 @@
+{
+    "pdf_info": [
+        {
+            "preproc_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        78,
+                        84,
+                        268,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                82,
+                                270,
+                                100
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        82,
+                                        270,
+                                        100
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence and Machine Learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        429,
+                        163
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                105,
+                                403,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        105,
+                                        403,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence (AI) is a field of computer science that aims to create",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                120,
+                                430,
+                                134
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        120,
+                                        430,
+                                        134
+                                    ],
+                                    "score": 1.0,
+                                    "content": "intelligent machines that work and react like humans. Machine Learning (ML) is",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                135,
+                                401,
+                                149
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        135,
+                                        401,
+                                        149
+                                    ],
+                                    "score": 1.0,
+                                    "content": "a subset of AI that provides systems the ability to automatically learn and",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                150,
+                                353,
+                                164
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        150,
+                                        353,
+                                        164
+                                    ],
+                                    "score": 1.0,
+                                    "content": "improve from experience without being explicitly programmed.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        }
+                    ],
+                    "index": 2.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        170,
+                        425,
+                        228
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                171,
+                                423,
+                                185
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        171,
+                                        423,
+                                        185
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Deep Learning is a subset of machine learning that uses neural networks with",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                187,
+                                423,
+                                200
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        187,
+                                        423,
+                                        200
+                                    ],
+                                    "score": 1.0,
+                                    "content": "multiple layers to model and understand complex patterns in data. It has been",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                201,
+                                395,
+                                216
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        201,
+                                        395,
+                                        216
+                                    ],
+                                    "score": 1.0,
+                                    "content": "particularly successful in areas like image recognition, natural language",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                216,
+                                239,
+                                230
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        216,
+                                        239,
+                                        230
+                                    ],
+                                    "score": 1.0,
+                                    "content": "processing, and speech recognition.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        }
+                    ],
+                    "index": 6.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        236,
+                        203,
+                        325
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                237,
+                                193,
+                                249
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        237,
+                                        193,
+                                        249
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Applications of AI include:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                253,
+                                180,
+                                264
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        253,
+                                        180,
+                                        264
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Autonomous vehicles",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                267,
+                                164,
+                                280
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        267,
+                                        164,
+                                        280
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Medical diagnosis",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                281,
+                                159,
+                                295
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        281,
+                                        159,
+                                        295
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Financial trading",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                297,
+                                203,
+                                311
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        297,
+                                        203,
+                                        311
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Recommendation systems",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                312,
+                                160,
+                                324
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        312,
+                                        160,
+                                        324
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Virtual assistants",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14
+                        }
+                    ],
+                    "index": 11.5
+                }
+            ],
+            "page_idx": 0,
+            "page_size": [
+                595,
+                841
+            ],
+            "discarded_blocks": [],
+            "para_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        78,
+                        84,
+                        268,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                82,
+                                270,
+                                100
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        82,
+                                        270,
+                                        100
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence and Machine Learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0,
+                    "bbox_fs": [
+                        75,
+                        82,
+                        270,
+                        100
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        429,
+                        163
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                105,
+                                403,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        105,
+                                        403,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence (AI) is a field of computer science that aims to create",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                120,
+                                430,
+                                134
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        120,
+                                        430,
+                                        134
+                                    ],
+                                    "score": 1.0,
+                                    "content": "intelligent machines that work and react like humans. Machine Learning (ML) is",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                135,
+                                401,
+                                149
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        135,
+                                        401,
+                                        149
+                                    ],
+                                    "score": 1.0,
+                                    "content": "a subset of AI that provides systems the ability to automatically learn and",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                150,
+                                353,
+                                164
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        150,
+                                        353,
+                                        164
+                                    ],
+                                    "score": 1.0,
+                                    "content": "improve from experience without being explicitly programmed.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        }
+                    ],
+                    "index": 2.5,
+                    "bbox_fs": [
+                        75,
+                        105,
+                        430,
+                        164
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        170,
+                        425,
+                        228
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                171,
+                                423,
+                                185
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        171,
+                                        423,
+                                        185
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Deep Learning is a subset of machine learning that uses neural networks with",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                187,
+                                423,
+                                200
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        187,
+                                        423,
+                                        200
+                                    ],
+                                    "score": 1.0,
+                                    "content": "multiple layers to model and understand complex patterns in data. It has been",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                201,
+                                395,
+                                216
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        201,
+                                        395,
+                                        216
+                                    ],
+                                    "score": 1.0,
+                                    "content": "particularly successful in areas like image recognition, natural language",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                216,
+                                239,
+                                230
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        216,
+                                        239,
+                                        230
+                                    ],
+                                    "score": 1.0,
+                                    "content": "processing, and speech recognition.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        }
+                    ],
+                    "index": 6.5,
+                    "bbox_fs": [
+                        75,
+                        171,
+                        423,
+                        230
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        236,
+                        203,
+                        325
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                237,
+                                193,
+                                249
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        237,
+                                        193,
+                                        249
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Applications of AI include:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                253,
+                                180,
+                                264
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        253,
+                                        180,
+                                        264
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Autonomous vehicles",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                267,
+                                164,
+                                280
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        267,
+                                        164,
+                                        280
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Medical diagnosis",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                281,
+                                159,
+                                295
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        281,
+                                        159,
+                                        295
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Financial trading",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                297,
+                                203,
+                                311
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        297,
+                                        203,
+                                        311
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Recommendation systems",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                312,
+                                160,
+                                324
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        312,
+                                        160,
+                                        324
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Virtual assistants",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14
+                        }
+                    ],
+                    "index": 11.5,
+                    "bbox_fs": [
+                        75,
+                        237,
+                        203,
+                        324
+                    ]
+                }
+            ]
+        }
+    ],
+    "_backend": "pipeline",
+    "_version_name": "2.2.0"
+}

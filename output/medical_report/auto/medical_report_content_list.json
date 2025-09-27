@@ -1,0 +1,135 @@
+[
+    {
+        "type": "text",
+        "text": "Patient Medical Report ",
+        "text_level": 1,
+        "bbox": [
+            129,
+            99,
+            302,
+            114
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Patient ID: 12345 ",
+        "bbox": [
+            129,
+            124,
+            262,
+            139
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Date: 2024-01-15 ",
+        "bbox": [
+            129,
+            142,
+            262,
+            156
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Chief Complaint: Chest pain and shortness of breath ",
+        "bbox": [
+            129,
+            167,
+            522,
+            183
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "History of Present Illness:   \nThe patient is a 65-year-old male with a history of HTN and DM who presents with acute onset chest pain. The pain began approximately 2 hours ago and is described as crushing, substernal, radiating to the left arm. Patient also reports SOB and diaphoresis.   \nPhysical Examination:   \n- BP: 180/100 mmHg   \n- HR: 110 bpm   \n- Temperature: 98.6■   \n- Cardiovascular: S1, S2 present, no murmurs   \n- Pulmonary: Clear to auscultation bilaterally Laboratory Results:   \n- Troponin I: 0.8 ng/mL (elevated) - CBC: WBC 8.5, Hgb 14.2, Plt 250 - BNP: 450 pg/mL ",
+        "bbox": [
+            129,
+            192,
+            715,
+            278
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            127,
+            288,
+            473,
+            393
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "",
+        "bbox": [
+            127,
+            403,
+            394,
+            472
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Imaging: ",
+        "bbox": [
+            129,
+            482,
+            194,
+            495
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "- ECG: ST elevation in leads II, III, aVF - Chest X-ray: No acute cardiopulmonary process ",
+        "bbox": [
+            129,
+            499,
+            500,
+            531
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Assessment and Plan: ",
+        "bbox": [
+            129,
+            542,
+            297,
+            556
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "1. STEMI (ST-elevation myocardial infarction) - likely RCA occlusion   \n2. HTN - continue current medications   \n3. DM - monitor glucose closely ",
+        "bbox": [
+            126,
+            560,
+            638,
+            611
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Plan: Emergency cardiac catheterization, dual antiplatelet therapy, statin therapy, beta-blocker when stable. ",
+        "bbox": [
+            127,
+            620,
+            625,
+            652
+        ],
+        "page_idx": 0
+    }
+]

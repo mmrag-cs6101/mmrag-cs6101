@@ -1,0 +1,53 @@
+# MRAG-Bench Reproduction System Configuration
+#
+# This configuration file defines all parameters for reproducing MRAG-Bench
+# baseline results on perspective change scenarios.
+
+model:
+  vlm_name: "llava-hf/llava-1.5-7b-hf"
+  retriever_name: "openai/clip-vit-base-patch32"
+  quantization: "4bit"  # 4bit, 8bit, or none
+  max_memory_gb: 14.0
+  device: "cuda"
+  torch_dtype: "float16"
+
+dataset:
+  data_path: "data/mrag_bench"
+  batch_size: 4
+  image_size: [224, 224]
+  cache_embeddings: true
+  embedding_cache_path: "data/embeddings"
+
+retrieval:
+  embedding_dim: 512
+  top_k: 5
+  similarity_threshold: 0.0
+  batch_size: 16
+  faiss_index_type: "IVF"
+  index_cache_path: "data/embeddings/faiss_index.bin"
+
+generation:
+  max_length: 512
+  temperature: 0.7
+  do_sample: true
+  top_p: 0.9
+  top_k: 50
+  num_beams: 1
+
+evaluation:
+  scenarios:
+    - "angle"
+    - "partial"
+    - "scope"
+    - "occlusion"
+  save_results: true
+  results_path: "results/evaluation_results.json"
+  log_failed_questions: true
+
+performance:
+  memory_limit_gb: 16.0
+  memory_buffer_gb: 1.0
+  retrieval_timeout: 5.0
+  generation_timeout: 25.0
+  total_pipeline_timeout: 30.0
+  enable_memory_monitoring: true

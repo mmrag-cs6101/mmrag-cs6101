@@ -1,62 +1,60 @@
-# Core ML Libraries
-torch>=2.1.0
-torchvision>=0.16.0
-torchaudio>=2.1.0
-transformers>=4.35.0
-accelerate>=0.24.0
+# MRAG-Bench Reproduction System Requirements
+# Core dependencies for reproducing MRAG-Bench baseline results
+
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Transformers and Model Libraries
+transformers>=4.30.0
+accelerate>=0.20.0
+bitsandbytes>=0.39.0
 
 # Vision and Multimodal
-timm>=0.9.10
-pillow>=10.0.0
-opencv-python>=4.8.0
+Pillow>=9.0.0
+opencv-python>=4.7.0
 
-# Vector Search and Retrieval
-faiss-cpu>=1.7.4
-# faiss-gpu>=1.7.4  # Uncomment for GPU version
-sentence-transformers>=2.2.2
-
-# 🔥 NEW: Local RAG-Anything Dependencies
-lightrag-hku>=0.1.0
-mineru[core]>=0.1.0
-bitsandbytes>=0.41.0  # For model quantization
-
-# Medical Data Processing
-pydicom>=2.4.3
-nibabel>=5.1.0
-SimpleITK>=2.3.0
-
-# Web Interface and Demo
-gradio>=4.0.0
-streamlit>=1.28.0
-fastapi>=0.104.0
-uvicorn>=0.24.0
+# Vector Database and Similarity Search
+faiss-gpu>=1.7.0
 
 # Data Processing
-numpy>=1.24.0
-pandas>=2.0.0
-scikit-learn>=1.3.0
-datasets>=2.14.0
+numpy>=1.21.0
+pandas>=1.5.0
+datasets>=2.10.0
 
-# Evaluation and Metrics
-nltk>=3.8.0
-rouge-score>=0.1.2
-sacrebleu>=2.3.1
-bert-score>=0.3.13
-
-# Utilities
-tqdm>=4.66.0
-wandb>=0.15.0
+# Configuration and Utilities
+PyYAML>=6.0
+pydantic>=1.10.0
 python-dotenv>=1.0.0
-requests>=2.31.0
-matplotlib>=3.7.0
+
+# Monitoring and Logging
+psutil>=5.9.0
+wandb>=0.15.0
+tensorboard>=2.12.0
+
+# Testing and Development
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Scientific Computing
+scipy>=1.9.0
+scikit-learn>=1.2.0
+matplotlib>=3.6.0
 seaborn>=0.12.0
 
-# Development Tools
-pytest>=7.4.0
-black>=23.0.0
-isort>=5.12.0
-flake8>=6.0.0
-pre-commit>=3.4.0
+# HTTP and Download Utilities
+requests>=2.28.0
+tqdm>=4.64.0
 
-# Optional: For distributed training
-# deepspeed>=0.10.0
+# Optional: For advanced optimization
+# torch-audio>=0.13.0  # For audio processing if needed
+# xformers>=0.0.16     # For memory-efficient attention (if compatible)
+
+# Development Tools (optional, install separately if needed)
+# jupyter>=1.0.0
+# ipykernel>=6.0.0
+# notebook>=6.0.0

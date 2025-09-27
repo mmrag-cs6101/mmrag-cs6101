@@ -1,0 +1,46 @@
+[
+    {
+        "type": "text",
+        "text": "Artificial Intelligence and Machine Learning ",
+        "bbox": [
+            131,
+            99,
+            450,
+            114
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Artificial Intelligence (AI) is a field of computer science that aims to create intelligent machines that work and react like humans. Machine Learning (ML) is a subset of AI that provides systems the ability to automatically learn and improve from experience without being explicitly programmed. ",
+        "bbox": [
+            129,
+            124,
+            721,
+            193
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Deep Learning is a subset of machine learning that uses neural networks with multiple layers to model and understand complex patterns in data. It has been particularly successful in areas like image recognition, natural language processing, and speech recognition. ",
+        "bbox": [
+            129,
+            202,
+            714,
+            271
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Applications of AI include: - Autonomous vehicles - Medical diagnosis - Financial trading - Recommendation systems - Virtual assistants ",
+        "bbox": [
+            127,
+            280,
+            341,
+            386
+        ],
+        "page_idx": 0
+    }
+]

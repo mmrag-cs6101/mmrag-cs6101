@@ -1,0 +1,1619 @@
+{
+    "pdf_info": [
+        {
+            "preproc_blocks": [
+                {
+                    "type": "title",
+                    "bbox": [
+                        77,
+                        84,
+                        180,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                83,
+                                181,
+                                98
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        83,
+                                        181,
+                                        98
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Patient Medical Report",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        156,
+                        117
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                104,
+                                157,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        104,
+                                        157,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Patient ID: 12345",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 1
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        120,
+                        156,
+                        132
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                119,
+                                157,
+                                134
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        119,
+                                        157,
+                                        134
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Date: 2024-01-15",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 2
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        141,
+                        311,
+                        154
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                141,
+                                311,
+                                155
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        141,
+                                        311,
+                                        155
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Chief Complaint: Chest pain and shortness of breath",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 3
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        162,
+                        426,
+                        234
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                161,
+                                192,
+                                176
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        161,
+                                        192,
+                                        176
+                                    ],
+                                    "score": 1.0,
+                                    "content": "History of Present Illness:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                177,
+                                420,
+                                191
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        177,
+                                        420,
+                                        191
+                                    ],
+                                    "score": 1.0,
+                                    "content": "The patient is a 65-year-old male with a history of HTN and DM who presents",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                192,
+                                425,
+                                206
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        192,
+                                        425,
+                                        206
+                                    ],
+                                    "score": 1.0,
+                                    "content": "with acute onset chest pain. The pain began approximately 2 hours ago and is",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                207,
+                                394,
+                                221
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        207,
+                                        394,
+                                        221
+                                    ],
+                                    "score": 1.0,
+                                    "content": "described as crushing, substernal, radiating to the left arm. Patient also",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                223,
+                                210,
+                                236
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        223,
+                                        210,
+                                        236
+                                    ],
+                                    "score": 1.0,
+                                    "content": "reports SOB and diaphoresis.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        }
+                    ],
+                    "index": 6
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        243,
+                        282,
+                        331
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                244,
+                                176,
+                                255
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        244,
+                                        176,
+                                        255
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Physical Examination:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                257,
+                                172,
+                                271
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        257,
+                                        172,
+                                        271
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- BP: 180/100 mmHg",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                272,
+                                144,
+                                287
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        272,
+                                        144,
+                                        287
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- HR: 110 bpm",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11
+                        },
+                        {
+                            "bbox": [
+                                77,
+                                288,
+                                175,
+                                301
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        288,
+                                        175,
+                                        301
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Temperature: 98.6■",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                303,
+                                282,
+                                316
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        303,
+                                        282,
+                                        316
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Cardiovascular: S1, S2 present, no murmurs",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                318,
+                                274,
+                                331
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        318,
+                                        274,
+                                        331
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Pulmonary: Clear to auscultation bilaterally",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14
+                        }
+                    ],
+                    "index": 11.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        339,
+                        235,
+                        397
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                339,
+                                166,
+                                353
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        339,
+                                        166,
+                                        353
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Laboratory Results:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                353,
+                                227,
+                                367
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        353,
+                                        227,
+                                        367
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Troponin I: 0.8 ng/mL (elevated)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                368,
+                                235,
+                                383
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        368,
+                                        235,
+                                        383
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- CBC: WBC 8.5, Hgb 14.2, Plt 250",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                383,
+                                159,
+                                398
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        383,
+                                        159,
+                                        398
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- BNP: 450 pg/mL",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18
+                        }
+                    ],
+                    "index": 16.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        406,
+                        116,
+                        417
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                403,
+                                118,
+                                421
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        403,
+                                        118,
+                                        421
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Imaging:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        }
+                    ],
+                    "index": 19
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        420,
+                        298,
+                        447
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                420,
+                                251,
+                                433
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        420,
+                                        251,
+                                        433
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- ECG: ST elevation in leads II, III, aVF",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                434,
+                                298,
+                                449
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        434,
+                                        298,
+                                        449
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Chest X-ray: No acute cardiopulmonary process",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 21
+                        }
+                    ],
+                    "index": 20.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        456,
+                        177,
+                        468
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                456,
+                                179,
+                                469
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        456,
+                                        179,
+                                        469
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Assessment and Plan:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 22
+                        }
+                    ],
+                    "index": 22
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        75,
+                        471,
+                        380,
+                        514
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                470,
+                                380,
+                                485
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        470,
+                                        380,
+                                        485
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. STEMI (ST-elevation myocardial infarction) - likely RCA occlusion",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 23
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                487,
+                                248,
+                                498
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        487,
+                                        248,
+                                        498
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. HTN - continue current medications",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 24
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                500,
+                                219,
+                                515
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        500,
+                                        219,
+                                        515
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. DM - monitor glucose closely",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 25
+                        }
+                    ],
+                    "index": 24
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        522,
+                        372,
+                        549
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                520,
+                                373,
+                                538
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        520,
+                                        373,
+                                        538
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Plan: Emergency cardiac catheterization, dual antiplatelet therapy,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 26
+                        },
+                        {
+                            "bbox": [
+                                77,
+                                537,
+                                259,
+                                551
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        537,
+                                        259,
+                                        551
+                                    ],
+                                    "score": 1.0,
+                                    "content": "statin therapy, beta-blocker when stable.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 27
+                        }
+                    ],
+                    "index": 26.5
+                }
+            ],
+            "page_idx": 0,
+            "page_size": [
+                595,
+                841
+            ],
+            "discarded_blocks": [],
+            "para_blocks": [
+                {
+                    "type": "title",
+                    "bbox": [
+                        77,
+                        84,
+                        180,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                83,
+                                181,
+                                98
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        83,
+                                        181,
+                                        98
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Patient Medical Report",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        156,
+                        117
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                104,
+                                157,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        104,
+                                        157,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Patient ID: 12345",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 1,
+                    "bbox_fs": [
+                        75,
+                        104,
+                        157,
+                        119
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        120,
+                        156,
+                        132
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                119,
+                                157,
+                                134
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        119,
+                                        157,
+                                        134
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Date: 2024-01-15",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 2,
+                    "bbox_fs": [
+                        76,
+                        119,
+                        157,
+                        134
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        141,
+                        311,
+                        154
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                141,
+                                311,
+                                155
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        141,
+                                        311,
+                                        155
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Chief Complaint: Chest pain and shortness of breath",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 3,
+                    "bbox_fs": [
+                        77,
+                        141,
+                        311,
+                        155
+                    ]
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        77,
+                        162,
+                        426,
+                        234
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                161,
+                                192,
+                                176
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        161,
+                                        192,
+                                        176
+                                    ],
+                                    "score": 1.0,
+                                    "content": "History of Present Illness:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4,
+                            "is_list_end_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                177,
+                                420,
+                                191
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        177,
+                                        420,
+                                        191
+                                    ],
+                                    "score": 1.0,
+                                    "content": "The patient is a 65-year-old male with a history of HTN and DM who presents",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                192,
+                                425,
+                                206
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        192,
+                                        425,
+                                        206
+                                    ],
+                                    "score": 1.0,
+                                    "content": "with acute onset chest pain. The pain began approximately 2 hours ago and is",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                207,
+                                394,
+                                221
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        207,
+                                        394,
+                                        221
+                                    ],
+                                    "score": 1.0,
+                                    "content": "described as crushing, substernal, radiating to the left arm. Patient also",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                223,
+                                210,
+                                236
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        223,
+                                        210,
+                                        236
+                                    ],
+                                    "score": 1.0,
+                                    "content": "reports SOB and diaphoresis.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8,
+                            "is_list_end_line": true
+                        },
+                        {
+                            "bbox": [
+                                77,
+                                244,
+                                176,
+                                255
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        244,
+                                        176,
+                                        255
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Physical Examination:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                257,
+                                172,
+                                271
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        257,
+                                        172,
+                                        271
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- BP: 180/100 mmHg",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                272,
+                                144,
+                                287
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        272,
+                                        144,
+                                        287
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- HR: 110 bpm",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                77,
+                                288,
+                                175,
+                                301
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        288,
+                                        175,
+                                        301
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Temperature: 98.6■",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                303,
+                                282,
+                                316
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        303,
+                                        282,
+                                        316
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Cardiovascular: S1, S2 present, no murmurs",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                318,
+                                274,
+                                331
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        318,
+                                        274,
+                                        331
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Pulmonary: Clear to auscultation bilaterally",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                339,
+                                166,
+                                353
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        339,
+                                        166,
+                                        353
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Laboratory Results:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15,
+                            "is_list_end_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                353,
+                                227,
+                                367
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        353,
+                                        227,
+                                        367
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Troponin I: 0.8 ng/mL (elevated)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                368,
+                                235,
+                                383
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        368,
+                                        235,
+                                        383
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- CBC: WBC 8.5, Hgb 14.2, Plt 250",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                383,
+                                159,
+                                398
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        383,
+                                        159,
+                                        398
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- BNP: 450 pg/mL",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18,
+                            "is_list_end_line": true
+                        }
+                    ],
+                    "index": 6,
+                    "bbox_fs": [
+                        75,
+                        161,
+                        425,
+                        236
+                    ]
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        76,
+                        243,
+                        282,
+                        331
+                    ],
+                    "lines": [],
+                    "index": 11.5,
+                    "bbox_fs": [
+                        75,
+                        244,
+                        282,
+                        331
+                    ],
+                    "lines_deleted": true
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        76,
+                        339,
+                        235,
+                        397
+                    ],
+                    "lines": [],
+                    "index": 16.5,
+                    "bbox_fs": [
+                        75,
+                        339,
+                        235,
+                        398
+                    ],
+                    "lines_deleted": true
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        406,
+                        116,
+                        417
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                403,
+                                118,
+                                421
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        403,
+                                        118,
+                                        421
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Imaging:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        }
+                    ],
+                    "index": 19,
+                    "bbox_fs": [
+                        75,
+                        403,
+                        118,
+                        421
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        420,
+                        298,
+                        447
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                420,
+                                251,
+                                433
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        420,
+                                        251,
+                                        433
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- ECG: ST elevation in leads II, III, aVF",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                434,
+                                298,
+                                449
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        434,
+                                        298,
+                                        449
+                                    ],
+                                    "score": 1.0,
+                                    "content": "- Chest X-ray: No acute cardiopulmonary process",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 21
+                        }
+                    ],
+                    "index": 20.5,
+                    "bbox_fs": [
+                        75,
+                        420,
+                        298,
+                        449
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        456,
+                        177,
+                        468
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                456,
+                                179,
+                                469
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        456,
+                                        179,
+                                        469
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Assessment and Plan:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 22
+                        }
+                    ],
+                    "index": 22,
+                    "bbox_fs": [
+                        76,
+                        456,
+                        179,
+                        469
+                    ]
+                },
+                {
+                    "type": "index",
+                    "bbox": [
+                        75,
+                        471,
+                        380,
+                        514
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                470,
+                                380,
+                                485
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        470,
+                                        380,
+                                        485
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. STEMI (ST-elevation myocardial infarction) - likely RCA occlusion",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 23,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                487,
+                                248,
+                                498
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        487,
+                                        248,
+                                        498
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. HTN - continue current medications",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 24,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                500,
+                                219,
+                                515
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        500,
+                                        219,
+                                        515
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. DM - monitor glucose closely",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 25,
+                            "is_list_start_line": true
+                        }
+                    ],
+                    "index": 24,
+                    "bbox_fs": [
+                        75,
+                        470,
+                        380,
+                        515
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        522,
+                        372,
+                        549
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                520,
+                                373,
+                                538
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        520,
+                                        373,
+                                        538
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Plan: Emergency cardiac catheterization, dual antiplatelet therapy,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 26
+                        },
+                        {
+                            "bbox": [
+                                77,
+                                537,
+                                259,
+                                551
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        537,
+                                        259,
+                                        551
+                                    ],
+                                    "score": 1.0,
+                                    "content": "statin therapy, beta-blocker when stable.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 27
+                        }
+                    ],
+                    "index": 26.5,
+                    "bbox_fs": [
+                        75,
+                        520,
+                        373,
+                        551
+                    ]
+                }
+            ]
+        }
+    ],
+    "_backend": "pipeline",
+    "_version_name": "2.2.0"
+}

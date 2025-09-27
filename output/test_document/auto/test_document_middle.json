@@ -1,0 +1,493 @@
+{
+    "pdf_info": [
+        {
+            "preproc_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        84,
+                        269,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                83,
+                                269,
+                                97
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        83,
+                                        269,
+                                        97
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Machine Learning and Artificial Intelligence",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        470,
+                        147
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                104,
+                                465,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        104,
+                                        465,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Machine learning is a method of data analysis that automates analytical model building.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                119,
+                                470,
+                                133
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        119,
+                                        470,
+                                        133
+                                    ],
+                                    "score": 1.0,
+                                    "content": "It is a branch of artificial intelligence based on the idea that systems can learn from data,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                136,
+                                388,
+                                147
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        136,
+                                        388,
+                                        147
+                                    ],
+                                    "score": 1.0,
+                                    "content": "identify patterns and make decisions with minimal human intervention.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 2
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        156,
+                        232,
+                        168
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                156,
+                                234,
+                                169
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        156,
+                                        234,
+                                        169
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Types of machine learning include:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        }
+                    ],
+                    "index": 4
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        76,
+                        172,
+                        194,
+                        214
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                170,
+                                178,
+                                185
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        170,
+                                        178,
+                                        185
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. Supervised learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                185,
+                                189,
+                                200
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        185,
+                                        189,
+                                        200
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. Unsupervised learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                201,
+                                193,
+                                214
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        201,
+                                        193,
+                                        214
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. Reinforcement learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        }
+                    ],
+                    "index": 6
+                }
+            ],
+            "page_idx": 0,
+            "page_size": [
+                595,
+                841
+            ],
+            "discarded_blocks": [],
+            "para_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        84,
+                        269,
+                        96
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                83,
+                                269,
+                                97
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        83,
+                                        269,
+                                        97
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Machine Learning and Artificial Intelligence",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0,
+                    "bbox_fs": [
+                        75,
+                        83,
+                        269,
+                        97
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        105,
+                        470,
+                        147
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                75,
+                                104,
+                                465,
+                                119
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        104,
+                                        465,
+                                        119
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Machine learning is a method of data analysis that automates analytical model building.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                119,
+                                470,
+                                133
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        119,
+                                        470,
+                                        133
+                                    ],
+                                    "score": 1.0,
+                                    "content": "It is a branch of artificial intelligence based on the idea that systems can learn from data,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                136,
+                                388,
+                                147
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        136,
+                                        388,
+                                        147
+                                    ],
+                                    "score": 1.0,
+                                    "content": "identify patterns and make decisions with minimal human intervention.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 2,
+                    "bbox_fs": [
+                        75,
+                        104,
+                        470,
+                        147
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        156,
+                        232,
+                        168
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                76,
+                                156,
+                                234,
+                                169
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        156,
+                                        234,
+                                        169
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Types of machine learning include:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        }
+                    ],
+                    "index": 4,
+                    "bbox_fs": [
+                        76,
+                        156,
+                        234,
+                        169
+                    ]
+                },
+                {
+                    "type": "index",
+                    "bbox": [
+                        76,
+                        172,
+                        194,
+                        214
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                170,
+                                178,
+                                185
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        170,
+                                        178,
+                                        185
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. Supervised learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                185,
+                                189,
+                                200
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        185,
+                                        189,
+                                        200
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. Unsupervised learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                201,
+                                193,
+                                214
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        201,
+                                        193,
+                                        214
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. Reinforcement learning",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7,
+                            "is_list_start_line": true
+                        }
+                    ],
+                    "index": 6,
+                    "bbox_fs": [
+                        75,
+                        170,
+                        193,
+                        214
+                    ]
+                }
+            ]
+        }
+    ],
+    "_backend": "pipeline",
+    "_version_name": "2.2.0"
+}

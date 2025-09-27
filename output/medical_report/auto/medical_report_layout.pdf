@@ -1,0 +1,636 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [ 4 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 595.276 841.89 ]
+/Resources <<
+/ExtGState <<
+/gRLs0 <<
+/ca 0.3
+>>
+/gRLs1 <<
+/ca 1
+>>
+>>
+/Font <<
+/F1 6 0 R
+/F1-0 7 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/CropBox [ 0 0 595.276 841.89 ]
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 6293
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 78 757.8898 cm
+Q
+q
+1 0 0 1 78 745.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Patient Medical Report) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 742.8898 cm
+Q
+q
+1 0 0 1 78 736.8898 cm
+Q
+q
+1 0 0 1 78 724.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Patient ID: 12345) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 721.8898 cm
+Q
+q
+1 0 0 1 78 709.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Date: 2024-01-15) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 706.8898 cm
+Q
+q
+1 0 0 1 78 700.8898 cm
+Q
+q
+1 0 0 1 78 688.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Chief Complaint: Chest pain and shortness of breath) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 685.8898 cm
+Q
+q
+1 0 0 1 78 679.8898 cm
+Q
+q
+1 0 0 1 78 667.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (History of Present Illness:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 664.8898 cm
+Q
+q
+1 0 0 1 78 652.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (The patient is a 65-year-old male with a history of HTN and DM who presents) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 649.8898 cm
+Q
+q
+1 0 0 1 78 637.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (with acute onset chest pain. The pain began approximately 2 hours ago and is) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 634.8898 cm
+Q
+q
+1 0 0 1 78 622.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (described as crushing, substernal, radiating to the left arm. Patient also) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 619.8898 cm
+Q
+q
+1 0 0 1 78 607.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reports SOB and diaphoresis.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 604.8898 cm
+Q
+q
+1 0 0 1 78 598.8898 cm
+Q
+q
+1 0 0 1 78 586.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Physical Examination:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 583.8898 cm
+Q
+q
+1 0 0 1 78 571.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- BP: 180/100 mmHg) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 568.8898 cm
+Q
+q
+1 0 0 1 78 556.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- HR: 110 bpm) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 553.8898 cm
+Q
+q
+1 0 0 1 78 541.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- Temperature: 98.6) Tj /F2 10 Tf 12 TL (n) Tj /F1 10 Tf 12 TL T* ET
+Q
+Q
+q
+1 0 0 1 78 538.8898 cm
+Q
+q
+1 0 0 1 78 526.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- Cardiovascular: S1, S2 present, no murmurs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 523.8898 cm
+Q
+q
+1 0 0 1 78 511.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- Pulmonary: Clear to auscultation bilaterally) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 508.8898 cm
+Q
+q
+1 0 0 1 78 502.8898 cm
+Q
+q
+1 0 0 1 78 490.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Laboratory Results:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 487.8898 cm
+Q
+q
+1 0 0 1 78 475.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- Troponin I: 0.8 ng/mL \(elevated\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 472.8898 cm
+Q
+q
+1 0 0 1 78 460.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- CBC: WBC 8.5, Hgb 14.2, Plt 250) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 457.8898 cm
+Q
+q
+1 0 0 1 78 445.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- BNP: 450 pg/mL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 442.8898 cm
+Q
+q
+1 0 0 1 78 436.8898 cm
+Q
+q
+1 0 0 1 78 424.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Imaging:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 421.8898 cm
+Q
+q
+1 0 0 1 78 409.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- ECG: ST elevation in leads II, III, aVF) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 406.8898 cm
+Q
+q
+1 0 0 1 78 394.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (- Chest X-ray: No acute cardiopulmonary process) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 391.8898 cm
+Q
+q
+1 0 0 1 78 385.8898 cm
+Q
+q
+1 0 0 1 78 373.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Assessment and Plan:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 370.8898 cm
+Q
+q
+1 0 0 1 78 358.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (1. STEMI \(ST-elevation myocardial infarction\) - likely RCA occlusion) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 355.8898 cm
+Q
+q
+1 0 0 1 78 343.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (2. HTN - continue current medications) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 340.8898 cm
+Q
+q
+1 0 0 1 78 328.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (3. DM - monitor glucose closely) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 325.8898 cm
+Q
+q
+1 0 0 1 78 319.8898 cm
+Q
+q
+1 0 0 1 78 307.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Plan: Emergency cardiac catheterization, dual antiplatelet therapy,) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 304.8898 cm
+Q
+q
+1 0 0 1 78 292.8898 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (statin therapy, beta-blocker when stable.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 78 289.8898 cm
+Q
+q
+1 0 0 1 78 283.8898 cm
+Q
+ 
+
+Q
+
+q
+0.0 0.0 595.276 841.89 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.4 0.4 1 rg
+/gRLs0 gs
+n
+77 745.89 103 12 re
+f*
+0.6 0 0.298039 rg
+n
+77 724.89 79 12 re
+f*
+0.6 0 0.298039 rg
+n
+77 709.89 79 12 re
+f*
+0.6 0 0.298039 rg
+n
+77 687.89 234 13 re
+f*
+0.6 0 0.298039 rg
+n
+77 424.89 39 11 re
+f*
+0.6 0 0.298039 rg
+n
+77 394.89 221 27 re
+f*
+0.6 0 0.298039 rg
+n
+77 373.89 100 12 re
+f*
+0.6 0 0.298039 rg
+n
+76 292.89 296 27 re
+f*
+0.156863 0.662745 0.360784 rg
+n
+77 607.89 349 72 re
+f*
+0.156863 0.662745 0.360784 rg
+n
+76 510.89 206 88 re
+f*
+0.156863 0.662745 0.360784 rg
+n
+76 444.89 159 58 re
+f*
+0.156863 0.662745 0.360784 rg
+n
+75 327.89 305 43 re
+f*
+1 0 0 rg
+/gRLs1 gs
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 182 747.89 cm
+BT
+1 0 0 1 0 0 Tm
+(1) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 158 726.89 cm
+BT
+1 0 0 1 0 0 Tm
+(2) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 158 711.89 cm
+BT
+1 0 0 1 0 0 Tm
+(3) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 313 690.89 cm
+BT
+1 0 0 1 0 0 Tm
+(4) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 428 669.89 cm
+BT
+1 0 0 1 0 0 Tm
+(5) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 284 588.89 cm
+BT
+1 0 0 1 0 0 Tm
+(6) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 237 492.89 cm
+BT
+1 0 0 1 0 0 Tm
+(7) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 118 425.89 cm
+BT
+1 0 0 1 0 0 Tm
+(8) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 300 411.89 cm
+BT
+1 0 0 1 0 0 Tm
+(9) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 179 375.89 cm
+BT
+1 0 0 1 0 0 Tm
+(10) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 382 360.89 cm
+BT
+1 0 0 1 0 0 Tm
+(11) Tj
+T*
+ET
+Q
+1 0 0 rg
+BT
+/F1-0 10 Tf
+14.4 TL
+ET
+q
+1 0 0 1 374 309.89 cm
+BT
+1 0 0 1 0 0 Tm
+(12) Tj
+T*
+ET
+Q
+Q
+
+
+endstream
+endobj
+6 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+8 0 obj
+<<
+/BaseFont /ZapfDingbats
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000113 00000 n 
+0000000162 00000 n 
+0000000491 00000 n 
+0000006836 00000 n 
+0000006943 00000 n 
+0000007050 00000 n 
+trailer
+<<
+/Size 9
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+7133
+%%EOF

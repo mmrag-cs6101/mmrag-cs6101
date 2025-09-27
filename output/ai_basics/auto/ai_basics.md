@@ -1,0 +1,1 @@
+Artificial Intelligence Basics AI is the simulation of human intelligence in machines. It includes machine learning, deep learning, and neural networks.

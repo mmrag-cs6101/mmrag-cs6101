@@ -1,0 +1,61 @@
+{
+  "20a73501ec2ab9006ab573ce86549e23": {
+    "content_list": [
+      {
+        "type": "text",
+        "text": "Machine Learning and Artificial Intelligence ",
+        "bbox": [
+          129,
+          99,
+          452,
+          114
+        ],
+        "page_idx": 0
+      },
+      {
+        "type": "text",
+        "text": "Machine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention. ",
+        "bbox": [
+          129,
+          124,
+          789,
+          174
+        ],
+        "page_idx": 0
+      },
+      {
+        "type": "text",
+        "text": "Types of machine learning include: ",
+        "bbox": [
+          129,
+          185,
+          389,
+          199
+        ],
+        "page_idx": 0
+      },
+      {
+        "type": "text",
+        "text": "1. Supervised learning   \n2. Unsupervised learning   \n3. Reinforcement learning ",
+        "bbox": [
+          127,
+          204,
+          326,
+          254
+        ],
+        "page_idx": 0
+      }
+    ],
+    "doc_id": "doc-66d4912d107cc1bf0fda6547147b8c06",
+    "mtime": 1757164166.8743203,
+    "parse_config": {
+      "parser": "mineru",
+      "parse_method": "auto"
+    },
+    "cached_at": 1757164267.8072603,
+    "cache_version": "1.0",
+    "create_time": 1757164267,
+    "update_time": 1757164267,
+    "_id": "20a73501ec2ab9006ab573ce86549e23"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "doc-66d4912d107cc1bf0fda6547147b8c06": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-20661f4c03baecaaaba497c76bd748f3"
+    ],
+    "content_summary": "Machine Learning and Artificial Intelligence \n\nMachine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and...",
+    "content_length": 417,
+    "created_at": "2025-09-06T13:11:07.809365+00:00",
+    "updated_at": "2025-09-06T21:11:08+00:00",
+    "file_path": "test_document.txt",
+    "track_id": "insert_20250906_211107_822eca8c",
+    "metadata": {
+      "processing_start_time": 1757164267,
+      "processing_end_time": 1757164268
+    },
+    "multimodal_processed": true
+  }
+}

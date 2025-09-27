@@ -1,0 +1,16 @@
+{
+  "chunk-20661f4c03baecaaaba497c76bd748f3": {
+    "tokens": 75,
+    "content": "Machine Learning and Artificial Intelligence \n\nMachine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention. \n\nTypes of machine learning include: \n\n1. Supervised learning   \n2. Unsupervised learning   \n3. Reinforcement learning",
+    "chunk_order_index": 0,
+    "full_doc_id": "doc-66d4912d107cc1bf0fda6547147b8c06",
+    "file_path": "test_document.txt",
+    "llm_cache_list": [
+      "default:extract:1bc9814cfeef664d0663cdcb08172ed5",
+      "default:extract:13b8f9aa101e21a07e8400cf1bf3fa6f"
+    ],
+    "create_time": 1757164267,
+    "update_time": 1757164268,
+    "_id": "chunk-20661f4c03baecaaaba497c76bd748f3"
+  }
+}

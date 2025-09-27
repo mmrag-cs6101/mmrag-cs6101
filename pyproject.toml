@@ -6,18 +6,17 @@ build-backend = "hatchling.build"
 packages = ["src"]
 
 [project]
-name = "medical-multimodal-rag"
-version = "0.1.0"
-description = "Medical Multimodal RAG System for Clinical Question Answering"
+name = "mrag-bench"
+version = "1.0.0"
+description = "MRAG-Bench Reproduction System - Multimodal RAG for Medical Imaging"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Medical RAG Team", email = "team@example.com"},
+    {name = "AI Engineer", email = "engineer@example.com"},
 ]
-keywords = ["medical", "multimodal", "rag", "ai", "healthcare", "clip", "blip"]
+keywords = ["mrag-bench", "multimodal", "rag", "medical", "llava", "clip", "reproduction"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Healthcare Industry",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -25,11 +24,9 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Scientific/Engineering :: Medical Science Apps.",
 ]
-requires-python = ">=3.10,<3.11"
+requires-python = ">=3.8"
 dependencies = [
     # Core ML Libraries
     "torch>=2.1.0",

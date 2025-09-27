@@ -1,0 +1,180 @@
+{
+    "pdf_info": [
+        {
+            "preproc_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        84,
+                        367,
+                        127
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                85,
+                                199,
+                                96
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        85,
+                                        199,
+                                        96
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence Basics",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                99,
+                                319,
+                                112
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        99,
+                                        319,
+                                        112
+                                    ],
+                                    "score": 1.0,
+                                    "content": "AI is the simulation of human intelligence in machines.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                114,
+                                367,
+                                127
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        114,
+                                        367,
+                                        127
+                                    ],
+                                    "score": 1.0,
+                                    "content": "It includes machine learning, deep learning, and neural networks.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 1
+                }
+            ],
+            "page_idx": 0,
+            "page_size": [
+                595,
+                841
+            ],
+            "discarded_blocks": [],
+            "para_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        77,
+                        84,
+                        367,
+                        127
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                77,
+                                85,
+                                199,
+                                96
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        77,
+                                        85,
+                                        199,
+                                        96
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Artificial Intelligence Basics",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                75,
+                                99,
+                                319,
+                                112
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        75,
+                                        99,
+                                        319,
+                                        112
+                                    ],
+                                    "score": 1.0,
+                                    "content": "AI is the simulation of human intelligence in machines.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                76,
+                                114,
+                                367,
+                                127
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        76,
+                                        114,
+                                        367,
+                                        127
+                                    ],
+                                    "score": 1.0,
+                                    "content": "It includes machine learning, deep learning, and neural networks.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 1,
+                    "bbox_fs": [
+                        75,
+                        85,
+                        367,
+                        127
+                    ]
+                }
+            ]
+        }
+    ],
+    "_backend": "pipeline",
+    "_version_name": "2.2.0"
+}
