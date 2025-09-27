@@ -6,6 +6,5 @@ Implements embedding generation, vector storage, and top-k retrieval.
 """
 
 from .interface import RetrievalPipeline
-from .image_retriever import ImageRetriever
 
-__all__ = ["RetrievalPipeline", "ImageRetriever"]
+__all__ = ["RetrievalPipeline"]

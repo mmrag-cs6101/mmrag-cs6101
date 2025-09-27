@@ -5,7 +5,6 @@ Provides MRAG-Bench evaluation framework for accuracy calculation and performanc
 Implements evaluation methodology matching the original paper.
 """
 
-from .evaluator import MRAGBenchEvaluator
 from .results import EvaluationResults
 
-__all__ = ["MRAGBenchEvaluator", "EvaluationResults"]
+__all__ = ["EvaluationResults"]
