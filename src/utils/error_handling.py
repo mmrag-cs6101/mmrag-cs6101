@@ -303,6 +303,34 @@ class ErrorHandler:
 
 
 # Decorators for automatic error handling
+def handle_errors(func: Callable = None, *, category: ErrorCategory = ErrorCategory.SYSTEM,
+                 severity: ErrorSeverity = ErrorSeverity.MEDIUM, max_retries: int = 3):
+    """
+    Simple error handling decorator.
+
+    Args:
+        func: Function to decorate
+        category: Error category
+        severity: Error severity level
+        max_retries: Maximum retry attempts
+    """
+    def decorator(f: Callable) -> Callable:
+        @functools.wraps(f)
+        def wrapper(*args, **kwargs):
+            try:
+                return f(*args, **kwargs)
+            except Exception as e:
+                logger = logging.getLogger(f.__module__)
+                logger.error(f"Error in {f.__name__}: {str(e)}")
+                raise
+        return wrapper
+
+    if func is None:
+        return decorator
+    else:
+        return decorator(func)
+
+
 def with_error_handling(category: ErrorCategory, severity: ErrorSeverity = ErrorSeverity.MEDIUM,
                        max_retries: int = 3):
     """
