@@ -366,6 +366,37 @@ class MRAGDataset(DatasetInterface):
 
         return validation_results
 
+    def get_samples_by_scenario(self, scenario_type: str) -> List[Sample]:
+        """
+        Get all samples for a specific perspective change scenario.
+
+        Args:
+            scenario_type: One of ['angle', 'partial', 'scope', 'occlusion']
+
+        Returns:
+            List of Sample objects for the specified scenario
+        """
+        if scenario_type not in self.perspective_types:
+            raise ValueError(f"Invalid scenario type: {scenario_type}. Must be one of {self.perspective_types}")
+
+        samples = []
+        for question_data in self.questions_data:
+            # Map category to perspective type
+            category = question_data.get('scenario', question_data.get('category', 'unknown'))
+            perspective_type = self.category_to_perspective.get(category, 'angle')  # Default to angle
+
+            if perspective_type == scenario_type:
+                try:
+                    sample = self._create_sample_from_question(question_data)
+                    if sample:
+                        samples.append(sample)
+                except Exception as e:
+                    logger.warning(f"Error creating sample for question {question_data.get('question_id', 'unknown')}: {e}")
+                    continue
+
+        logger.info(f"Found {len(samples)} samples for scenario: {scenario_type}")
+        return samples
+
     def get_scenario_stats(self) -> Dict[str, int]:
         """
         Get sample count for each perspective change scenario.

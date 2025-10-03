@@ -40,7 +40,7 @@ def download_mrag_bench_dataset(data_dir: str = "data/mrag_bench") -> Dict[str, 
 
     try:
         # Load dataset
-        dataset = load_dataset('uclanlp/MRAG-Bench', split='test', trust_remote_code=True)
+        dataset = load_dataset('uclanlp/MRAG-Bench', split='test')
         logger.info(f"Dataset loaded: {len(dataset)} samples")
 
         # Analyze dataset structure
@@ -63,7 +63,19 @@ def download_mrag_bench_dataset(data_dir: str = "data/mrag_bench") -> Dict[str, 
             if 'image' in item and item['image'] is not None:
                 image_filename = f"image_{i:06d}.jpg"
                 image_path = data_path / "images" / image_filename
-                item['image'].save(image_path)
+
+                # Convert RGBA to RGB if necessary for JPEG saving
+                image = item['image']
+                if image.mode == 'RGBA':
+                    # Create white background for transparency
+                    rgb_image = Image.new('RGB', image.size, (255, 255, 255))
+                    rgb_image.paste(image, mask=image.split()[-1])  # Use alpha channel as mask
+                    image = rgb_image
+                elif image.mode not in ['RGB', 'L']:
+                    # Convert other modes to RGB
+                    image = image.convert('RGB')
+
+                image.save(image_path, 'JPEG', quality=95)
                 metadata_info["image_count"] += 1
 
             # Prepare question data
@@ -87,8 +99,21 @@ def download_mrag_bench_dataset(data_dir: str = "data/mrag_bench") -> Dict[str, 
 
             # Save sample data for first 10 items
             if i < 10:
-                sample_item = dict(item)
-                sample_item['image'] = f"<PIL_Image_{i}>" if 'image' in item else None
+                sample_item = {}
+                for key, value in item.items():
+                    if key == 'image':
+                        sample_item[key] = f"<PIL_Image_{i}>" if value is not None else None
+                    elif key == 'gt_images':
+                        sample_item[key] = f"<PIL_Images_list_{len(value) if value else 0}>" if value else None
+                    elif key == 'retrieved_images':
+                        sample_item[key] = f"<PIL_Images_list_{len(value) if value else 0}>" if value else None
+                    else:
+                        # Handle other non-serializable objects
+                        try:
+                            json.dumps(value)  # Test if serializable
+                            sample_item[key] = value
+                        except (TypeError, ValueError):
+                            sample_item[key] = f"<{type(value).__name__}>"
                 sample_data.append(sample_item)
 
             if (i + 1) % 100 == 0:

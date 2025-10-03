@@ -16,7 +16,7 @@ from .dataset import MRAGDataset, Sample
 from .retrieval import CLIPRetriever, RetrievalConfig
 from .generation import LLaVAGenerationPipeline, GenerationConfig, MultimodalContext, GenerationResult
 from .utils.memory_manager import MemoryManager
-from .utils.error_handling import handle_errors, MRAGError
+from .utils.error_handling import handle_errors, MRAGError, ErrorCategory, ErrorSeverity
 
 
 logger = logging.getLogger(__name__)
@@ -36,6 +36,21 @@ class PipelineResult:
     generation_time: float
     memory_usage: Dict[str, float]
     metadata: Dict[str, Any]
+
+    # Sprint 6 Enhancement: Additional monitoring fields
+    pipeline_stage_times: Dict[str, float] = None
+    memory_usage_per_stage: Dict[str, Dict[str, float]] = None
+    error_recovery_attempts: int = 0
+    optimization_triggers: List[str] = None
+
+    def __post_init__(self):
+        """Initialize default values for new fields."""
+        if self.pipeline_stage_times is None:
+            self.pipeline_stage_times = {}
+        if self.memory_usage_per_stage is None:
+            self.memory_usage_per_stage = {}
+        if self.optimization_triggers is None:
+            self.optimization_triggers = []
 
 
 class MRAGPipeline:
@@ -76,12 +91,27 @@ class MRAGPipeline:
         self.pipeline_stats = {
             "total_queries": 0,
             "successful_queries": 0,
+            "failed_queries": 0,
             "avg_retrieval_time": 0.0,
             "avg_generation_time": 0.0,
-            "avg_total_time": 0.0
+            "avg_total_time": 0.0,
+            "memory_optimizations_triggered": 0,
+            "error_recoveries_performed": 0
         }
 
-        logger.info("MRAG pipeline initialized")
+        # Sprint 6 Enhancement: Performance monitoring and optimization
+        self.performance_monitor = {
+            "retrieval_time_threshold": config.performance.retrieval_timeout,
+            "generation_time_threshold": config.performance.generation_timeout,
+            "total_time_threshold": config.performance.total_pipeline_timeout,
+            "memory_optimization_threshold": 0.9  # 90% of memory limit
+        }
+
+        # Sprint 6 Enhancement: Error recovery strategies
+        self.recovery_attempts = {}
+        self.max_recovery_attempts = 3
+
+        logger.info("MRAG pipeline initialized with Sprint 6 enhancements")
 
     @handle_errors
     def initialize_dataset(self) -> None:
@@ -305,10 +335,32 @@ class MRAGPipeline:
                 f"(total: {total_time:.2f}s)"
             )
 
+            # Sprint 6 Enhancement: Performance monitoring and optimization
+            optimization_triggers = self.check_performance_triggers(
+                retrieval_time, generation_time, total_time
+            )
+
+            if optimization_triggers:
+                self.apply_performance_optimizations(optimization_triggers)
+
             # Update statistics
             self._update_stats(retrieval_time, generation_time, total_time)
 
-            # Create pipeline result
+            # Sprint 6 Enhancement: Detailed performance tracking
+            stage_times = {
+                "dataset_init": 0.0,  # Would need to track this separately
+                "model_loading": 0.0,  # Would need to track this separately
+                "retrieval": retrieval_time,
+                "generation": generation_time,
+                "total": total_time
+            }
+
+            memory_usage_per_stage = {
+                "after_retrieval": self.memory_manager.monitor.get_current_stats().__dict__,
+                "after_generation": self.memory_manager.monitor.get_current_stats().__dict__
+            }
+
+            # Create enhanced pipeline result
             result = PipelineResult(
                 question_id=question_id,
                 question=question,
@@ -324,16 +376,34 @@ class MRAGPipeline:
                     "ground_truth": ground_truth,
                     "num_retrieved_images": len(retrieved_images),
                     "generation_metadata": generation_result.metadata
-                }
+                },
+                # Sprint 6 enhancements
+                pipeline_stage_times=stage_times,
+                memory_usage_per_stage=memory_usage_per_stage,
+                error_recovery_attempts=0,
+                optimization_triggers=optimization_triggers
             )
 
             return result
 
         except Exception as e:
             logger.error(f"Pipeline processing failed for question {question_id}: {e}")
-            self.memory_manager.emergency_cleanup()
 
-            # Return error result
+            # Sprint 6 Enhancement: Error recovery attempt
+            error_stage = self._identify_error_stage(e, retrieval_time, generation_time)
+            recovery_successful = self.handle_pipeline_error(e, error_stage, question_id)
+
+            error_recovery_attempts = self.recovery_attempts.get(f"{error_stage}:{question_id}", 0)
+
+            if recovery_successful and error_recovery_attempts < self.max_recovery_attempts:
+                logger.info(f"Error recovery successful, retrying query {question_id}")
+                # Recursive retry with recovery applied
+                return self.process_query(question, question_id, ground_truth, use_sequential_loading)
+
+            self.memory_manager.emergency_cleanup()
+            self.pipeline_stats["failed_queries"] += 1
+
+            # Return enhanced error result
             return PipelineResult(
                 question_id=question_id,
                 question=question,
@@ -345,8 +415,46 @@ class MRAGPipeline:
                 retrieval_time=retrieval_time,
                 generation_time=generation_time,
                 memory_usage=self.memory_manager.monitor.get_current_stats().__dict__,
-                metadata={"error": str(e)}
+                metadata={"error": str(e), "error_stage": error_stage},
+                # Sprint 6 enhancements
+                pipeline_stage_times={"error_occurred_at": time.time() - start_time},
+                memory_usage_per_stage={"error": self.memory_manager.monitor.get_current_stats().__dict__},
+                error_recovery_attempts=error_recovery_attempts,
+                optimization_triggers=[]
             )
+
+    def _identify_error_stage(self, error: Exception, retrieval_time: float, generation_time: float) -> str:
+        """
+        Identify which pipeline stage the error occurred in.
+
+        Args:
+            error: The exception that occurred
+            retrieval_time: Time spent in retrieval (0 if retrieval didn't complete)
+            generation_time: Time spent in generation (0 if generation didn't start)
+
+        Returns:
+            String identifying the error stage
+        """
+        error_msg = str(error).lower()
+
+        # Check for memory-related errors
+        if "out of memory" in error_msg or "cuda out of memory" in error_msg:
+            return "memory"
+
+        # Check for model loading errors
+        if "load" in error_msg and ("model" in error_msg or "tokenizer" in error_msg):
+            if generation_time == 0:
+                return "generation"
+            elif retrieval_time == 0:
+                return "retrieval"
+
+        # Determine by timing
+        if retrieval_time == 0:
+            return "retrieval"
+        elif generation_time == 0:
+            return "generation"
+        else:
+            return "general"
 
     def process_samples(
         self,
@@ -410,6 +518,185 @@ class MRAGPipeline:
             "memory_stats": self.memory_manager.monitor.get_current_stats().__dict__,
             "memory_trend": self.memory_manager.monitor.get_memory_usage_trend()
         }
+
+    # Sprint 6 Enhancement: Advanced monitoring and optimization methods
+
+    def check_performance_triggers(self, retrieval_time: float, generation_time: float,
+                                 total_time: float) -> List[str]:
+        """
+        Check for performance optimization triggers.
+
+        Args:
+            retrieval_time: Time taken for retrieval stage
+            generation_time: Time taken for generation stage
+            total_time: Total pipeline time
+
+        Returns:
+            List of triggered optimization actions
+        """
+        triggers = []
+
+        if retrieval_time > self.performance_monitor["retrieval_time_threshold"]:
+            triggers.append("optimize_retrieval")
+            logger.warning(f"Retrieval time ({retrieval_time:.2f}s) exceeds threshold")
+
+        if generation_time > self.performance_monitor["generation_time_threshold"]:
+            triggers.append("optimize_generation")
+            logger.warning(f"Generation time ({generation_time:.2f}s) exceeds threshold")
+
+        if total_time > self.performance_monitor["total_time_threshold"]:
+            triggers.append("optimize_pipeline")
+            logger.warning(f"Total pipeline time ({total_time:.2f}s) exceeds threshold")
+
+        # Check memory pressure
+        memory_stats = self.memory_manager.monitor.get_current_stats()
+        if memory_stats.gpu_total_gb > 0:
+            memory_utilization = memory_stats.gpu_allocated_gb / memory_stats.gpu_total_gb
+            if memory_utilization > self.performance_monitor["memory_optimization_threshold"]:
+                triggers.append("optimize_memory")
+                logger.warning(f"Memory utilization ({memory_utilization:.1%}) is high")
+
+        return triggers
+
+    def apply_performance_optimizations(self, triggers: List[str]) -> None:
+        """
+        Apply performance optimizations based on triggers.
+
+        Args:
+            triggers: List of optimization triggers to apply
+        """
+        for trigger in triggers:
+            try:
+                if trigger == "optimize_memory":
+                    self._optimize_memory()
+                elif trigger == "optimize_retrieval":
+                    self._optimize_retrieval()
+                elif trigger == "optimize_generation":
+                    self._optimize_generation()
+                elif trigger == "optimize_pipeline":
+                    self._optimize_pipeline()
+
+                self.pipeline_stats["memory_optimizations_triggered"] += 1
+                logger.info(f"Applied optimization: {trigger}")
+
+            except Exception as e:
+                logger.error(f"Failed to apply optimization {trigger}: {e}")
+
+    def _optimize_memory(self) -> None:
+        """Optimize memory usage when under pressure."""
+        logger.info("Applying memory optimization...")
+
+        # Clear unused model components
+        if self.retriever_loaded and self.generator_loaded:
+            # In sequential mode, we shouldn't have both loaded
+            self.unload_retriever()
+
+        # Aggressive memory cleanup
+        self.memory_manager.clear_gpu_memory(aggressive=True)
+
+        # Reduce batch sizes if configured
+        if hasattr(self.config.retrieval, 'batch_size'):
+            self.config.retrieval.batch_size = max(1, self.config.retrieval.batch_size // 2)
+            logger.info(f"Reduced retrieval batch size to {self.config.retrieval.batch_size}")
+
+    def _optimize_retrieval(self) -> None:
+        """Optimize retrieval performance."""
+        logger.info("Applying retrieval optimization...")
+
+        # Reduce top-k if it's too high
+        if self.config.retrieval.top_k > 3:
+            self.config.retrieval.top_k = max(3, self.config.retrieval.top_k - 1)
+            logger.info(f"Reduced top-k to {self.config.retrieval.top_k}")
+
+    def _optimize_generation(self) -> None:
+        """Optimize generation performance."""
+        logger.info("Applying generation optimization...")
+
+        # Reduce max generation length
+        if self.config.generation.max_length > 256:
+            self.config.generation.max_length = max(256, self.config.generation.max_length - 128)
+            logger.info(f"Reduced max generation length to {self.config.generation.max_length}")
+
+    def _optimize_pipeline(self) -> None:
+        """Apply global pipeline optimizations."""
+        logger.info("Applying pipeline optimization...")
+
+        # Force sequential loading if not already enabled
+        if not hasattr(self, '_force_sequential'):
+            self._force_sequential = True
+            logger.info("Enabled forced sequential loading")
+
+    def handle_pipeline_error(self, error: Exception, stage: str, question_id: str) -> bool:
+        """
+        Handle pipeline errors with recovery strategies.
+
+        Args:
+            error: The exception that occurred
+            stage: Pipeline stage where error occurred
+            question_id: Question ID for tracking
+
+        Returns:
+            True if recovery was successful, False otherwise
+        """
+        recovery_key = f"{stage}:{question_id}"
+        attempt_count = self.recovery_attempts.get(recovery_key, 0)
+
+        if attempt_count >= self.max_recovery_attempts:
+            logger.error(f"Max recovery attempts reached for {recovery_key}")
+            return False
+
+        self.recovery_attempts[recovery_key] = attempt_count + 1
+        self.pipeline_stats["error_recoveries_performed"] += 1
+
+        logger.warning(f"Attempting recovery for {stage} error (attempt {attempt_count + 1}): {error}")
+
+        try:
+            if stage == "retrieval":
+                return self._recover_retrieval_error(error)
+            elif stage == "generation":
+                return self._recover_generation_error(error)
+            elif stage == "memory":
+                return self._recover_memory_error(error)
+            else:
+                return self._recover_general_error(error)
+
+        except Exception as recovery_error:
+            logger.error(f"Recovery failed: {recovery_error}")
+            return False
+
+    def _recover_retrieval_error(self, error: Exception) -> bool:
+        """Recover from retrieval errors."""
+        # Unload and reload retriever
+        if self.retriever_loaded:
+            self.unload_retriever()
+        self.memory_manager.clear_gpu_memory(aggressive=True)
+        time.sleep(1)  # Brief pause
+        self.load_retriever()
+        return True
+
+    def _recover_generation_error(self, error: Exception) -> bool:
+        """Recover from generation errors."""
+        # Unload and reload generator
+        if self.generator_loaded:
+            self.unload_generator()
+        self.memory_manager.clear_gpu_memory(aggressive=True)
+        time.sleep(1)  # Brief pause
+        self.load_generator()
+        return True
+
+    def _recover_memory_error(self, error: Exception) -> bool:
+        """Recover from memory errors."""
+        self.memory_manager.emergency_cleanup()
+        # Unload all models
+        self.unload_retriever()
+        self.unload_generator()
+        time.sleep(2)  # Longer pause for memory recovery
+        return True
+
+    def _recover_general_error(self, error: Exception) -> bool:
+        """General error recovery."""
+        self.memory_manager.clear_gpu_memory()
+        return True
 
     def cleanup(self) -> None:
         """Clean up all pipeline resources."""
