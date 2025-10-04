@@ -180,16 +180,35 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                         metadata={"error": "No valid images provided"}
                     )
 
-                # Process inputs - LLaVA Next processor needs images as a list
-                # and will handle image_sizes internally
-                inputs = self.processor(
-                    text=prompt,
-                    images=images if isinstance(images, list) else [images],
+                # Process text and images separately to handle image_sizes properly
+                import torch
+
+                # Ensure images is a list
+                image_list = images if isinstance(images, list) else [images]
+
+                # Process images separately to get pixel_values
+                image_inputs = self.processor.image_processor(
+                    images=image_list,
                     return_tensors="pt"
                 )
 
+                # Process text
+                text_inputs = self.processor.tokenizer(
+                    text=prompt,
+                    return_tensors="pt"
+                )
+
+                # Manually add image_sizes (required by LLaVA Next)
+                image_sizes = torch.tensor([[img.size[1], img.size[0]] for img in image_list])
+
+                # Combine inputs
+                inputs = {
+                    **text_inputs,
+                    **image_inputs,
+                    "image_sizes": image_sizes
+                }
+
                 # Move all inputs to device
-                import torch
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
                 # Generate response
