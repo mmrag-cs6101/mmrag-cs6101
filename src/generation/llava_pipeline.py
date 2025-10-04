@@ -106,7 +106,7 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 self.processor = LlavaNextProcessor.from_pretrained(
                     self.config.model_name,
                     torch_dtype=torch.float16 if self.config.torch_dtype == "float16" else torch.float32,
-                    use_fast=True
+                    use_fast=False  # Fast processor doesn't include image_sizes
                 )
 
                 # Load model with quantization
@@ -180,24 +180,16 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                         metadata={"error": "No valid images provided"}
                     )
 
-                # Process inputs
+                # Process inputs - LLaVA Next processor needs images as a list
+                # and will handle image_sizes internally
                 inputs = self.processor(
                     text=prompt,
-                    images=images,
+                    images=images if isinstance(images, list) else [images],
                     return_tensors="pt"
                 )
 
-                # Add image_sizes if not present (required by newer LLaVA models)
-                import torch
-                if "image_sizes" not in inputs and images:
-                    # Get image sizes from the actual images
-                    image_sizes = torch.tensor([[img.size[1], img.size[0]] for img in images])  # (height, width) format
-                    inputs["image_sizes"] = image_sizes
-                    logger.debug(f"Added image_sizes: {image_sizes.shape}")
-
-                logger.debug(f"Processor inputs keys: {inputs.keys()}")
-
                 # Move all inputs to device
+                import torch
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
                 # Generate response
