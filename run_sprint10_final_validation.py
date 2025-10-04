@@ -135,7 +135,7 @@ def run_final_validation(
     try:
         # Load configuration
         logger.info(f"Loading configuration from {config_path}...")
-        config = MRAGConfig.from_yaml(config_path)
+        config = MRAGConfig.load(config_path)
         logger.info("Configuration loaded successfully")
 
         # Override settings for quick test

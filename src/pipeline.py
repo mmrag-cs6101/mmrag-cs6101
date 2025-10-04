@@ -150,20 +150,29 @@ class MRAGPipeline:
                 top_k=self.config.retrieval.top_k,
                 similarity_threshold=self.config.retrieval.similarity_threshold,
                 batch_size=self.config.retrieval.batch_size,
-                device=self.config.model.device,
-                cache_embeddings=self.config.dataset.cache_embeddings,
-                embedding_cache_path=self.config.dataset.embedding_cache_path
+                device=self.config.model.device
             )
 
             self.retriever = CLIPRetriever(retrieval_config)
-            self.retriever.load_model()
 
             # Build index if not cached
+            # Note: Model loads automatically when needed (lazy loading)
             if self.dataset is None:
                 self.initialize_dataset()
 
+            # Get corpus image paths and encode them
             corpus_paths = self.dataset.get_retrieval_corpus()
-            self.retriever.build_index(corpus_paths)
+            logger.info(f"Encoding {len(corpus_paths)} corpus images...")
+
+            # Load images
+            from PIL import Image
+            corpus_images = [Image.open(path).convert('RGB') for path in corpus_paths]
+
+            # Encode images to get embeddings
+            embeddings = self.retriever.encode_images(corpus_images)
+
+            # Build FAISS index
+            self.retriever.build_index(embeddings, corpus_paths)
 
             self.retriever_loaded = True
             memory_stats = self.memory_manager.monitor.log_memory_stats("After CLIP loading")

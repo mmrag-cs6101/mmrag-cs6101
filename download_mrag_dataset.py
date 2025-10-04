@@ -59,24 +59,46 @@ def download_mrag_bench_dataset(data_dir: str = "data/mrag_bench") -> Dict[str, 
 
         # Process each sample
         for i, item in enumerate(dataset):
-            # Save image
-            if 'image' in item and item['image'] is not None:
-                image_filename = f"image_{i:06d}.jpg"
-                image_path = data_path / "images" / image_filename
-
+            # Helper function to convert and save image
+            def save_image(img, path):
+                if img is None:
+                    return False
                 # Convert RGBA to RGB if necessary for JPEG saving
-                image = item['image']
-                if image.mode == 'RGBA':
-                    # Create white background for transparency
-                    rgb_image = Image.new('RGB', image.size, (255, 255, 255))
-                    rgb_image.paste(image, mask=image.split()[-1])  # Use alpha channel as mask
-                    image = rgb_image
-                elif image.mode not in ['RGB', 'L']:
-                    # Convert other modes to RGB
-                    image = image.convert('RGB')
+                if img.mode == 'RGBA':
+                    rgb_image = Image.new('RGB', img.size, (255, 255, 255))
+                    rgb_image.paste(img, mask=img.split()[-1])
+                    img = rgb_image
+                elif img.mode not in ['RGB', 'L']:
+                    img = img.convert('RGB')
+                img.save(path, 'JPEG', quality=95)
+                return True
 
-                image.save(image_path, 'JPEG', quality=95)
-                metadata_info["image_count"] += 1
+            # Save main query image
+            image_filename = f"image_{i:06d}.jpg"
+            if 'image' in item and item['image'] is not None:
+                image_path = data_path / "images" / image_filename
+                if save_image(item['image'], image_path):
+                    metadata_info["image_count"] += 1
+
+            # Save ground truth images (5 per sample)
+            gt_image_paths = []
+            if 'gt_images' in item and item['gt_images'] is not None:
+                for j, gt_img in enumerate(item['gt_images']):
+                    gt_filename = f"gt_{i:06d}_{j}.jpg"
+                    gt_path = data_path / "images" / gt_filename
+                    if save_image(gt_img, gt_path):
+                        gt_image_paths.append(f"images/{gt_filename}")
+                        metadata_info["image_count"] += 1
+
+            # Save retrieved images (5 per sample)
+            retrieved_image_paths = []
+            if 'retrieved_images' in item and item['retrieved_images'] is not None:
+                for j, ret_img in enumerate(item['retrieved_images']):
+                    ret_filename = f"retrieved_{i:06d}_{j}.jpg"
+                    ret_path = data_path / "images" / ret_filename
+                    if save_image(ret_img, ret_path):
+                        retrieved_image_paths.append(f"images/{ret_filename}")
+                        metadata_info["image_count"] += 1
 
             # Prepare question data
             question_item = {

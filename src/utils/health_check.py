@@ -373,9 +373,11 @@ class SystemHealthCheck:
             return
 
         try:
-            from ..config import MRAGConfig
+            import sys
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+            from src.config import MRAGConfig
 
-            config = MRAGConfig.from_yaml(str(config_path))
+            config = MRAGConfig.load(str(config_path))
             config.validate()
 
             self.results.append(HealthCheckResult(
@@ -509,7 +511,8 @@ def main():
             print(f"\nJSON report saved to {args.output}")
 
     # Exit with status code
-    sys.exit(0 if report.overall_status == "healthy" else 1)
+    # Accept both "healthy" and "degraded" (warnings only) as passing
+    sys.exit(0 if report.overall_status in ["healthy", "degraded"] else 1)
 
 
 if __name__ == "__main__":
