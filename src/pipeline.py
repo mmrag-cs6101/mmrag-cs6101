@@ -326,7 +326,7 @@ class MRAGPipeline:
         question: str,
         question_id: str = "",
         ground_truth: str = "",
-        use_sequential_loading: bool = True
+        use_sequential_loading: bool = False
     ) -> PipelineResult:
         """
         Process a single query through the complete pipeline.
@@ -546,7 +546,7 @@ class MRAGPipeline:
     def process_samples(
         self,
         samples: List[Sample],
-        use_sequential_loading: bool = True
+        use_sequential_loading: bool = False
     ) -> List[PipelineResult]:
         """
         Process multiple samples through the pipeline.
