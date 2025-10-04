@@ -188,11 +188,14 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 )
 
                 # Add image_sizes if not present (required by newer LLaVA models)
+                import torch
                 if "image_sizes" not in inputs and images:
                     # Get image sizes from the actual images
-                    import torch
                     image_sizes = torch.tensor([[img.size[1], img.size[0]] for img in images])  # (height, width) format
                     inputs["image_sizes"] = image_sizes
+                    logger.debug(f"Added image_sizes: {image_sizes.shape}")
+
+                logger.debug(f"Processor inputs keys: {inputs.keys()}")
 
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
@@ -245,7 +248,9 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
             except Exception as e:
                 self.memory_manager.emergency_cleanup()
+                import traceback
                 logger.error(f"Generation failed: {e}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
 
                 return GenerationResult(
                     answer="I apologize, but I encountered an error processing your question.",
