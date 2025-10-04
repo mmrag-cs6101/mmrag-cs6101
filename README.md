@@ -152,6 +152,153 @@ mmrag-cs6101/
 └── README.md                 # This file
 ```
 
+## 🚀 Running the Pipeline
+
+### Step 1: Download Dataset
+
+**First time setup - download the MRAG-Bench dataset:**
+
+```bash
+# Activate environment
+source mrag-bench-env/bin/activate
+
+# Download dataset (~14,475 images, takes 5-10 minutes)
+python download_mrag_dataset.py
+
+# Verify download
+python -c "
+from pathlib import Path
+import json
+metadata = Path('data/mrag_bench/metadata/dataset_info.json')
+if metadata.exists():
+    with open(metadata) as f:
+        info = json.load(f)
+    print(f'✅ Dataset downloaded: {info[\"total_samples\"]} samples, {info[\"image_count\"]} images')
+else:
+    print('❌ Dataset not found')
+"
+```
+
+### Step 2: System Health Check
+
+**Verify all components are ready:**
+
+```bash
+# Activate environment
+source mrag-bench-env/bin/activate
+
+# Run comprehensive health check
+python src/utils/health_check.py
+
+# Expected output: All checks passed or degraded (warnings acceptable)
+```
+
+### Step 3: Run Quick Test
+
+**Test the complete pipeline on a small sample:**
+
+```bash
+# Activate environment
+source mrag-bench-env/bin/activate
+
+# Quick test (10 samples, ~2-3 minutes)
+python run_sprint10_final_validation.py --quick-test
+
+# This will:
+# - Load CLIP retriever (~0.3GB VRAM)
+# - Load LLaVA-1.5-7B (~4GB VRAM with 4-bit quantization)
+# - Process 10 sample questions
+# - Display results and performance metrics
+```
+
+### Step 4: Run Full Evaluation
+
+**Run complete evaluation on perspective change scenarios:**
+
+```bash
+# Activate environment
+source mrag-bench-env/bin/activate
+
+# Full evaluation (778 samples, 6-8 hours)
+python run_sprint10_final_validation.py --num-runs 3
+
+# Options:
+#   --num-runs N        Number of evaluation runs (default: 3)
+#   --quick-test        Fast test mode (10 samples only)
+#   --max-samples N     Limit samples per scenario
+#   --config PATH       Custom config file
+#   --output-dir PATH   Results directory
+```
+
+### Step 5: View Results
+
+**Check evaluation results:**
+
+```bash
+# Results are saved in output/ directory
+ls -lh output/
+
+# View latest results
+cat output/final_validation_*.json | python -m json.tool
+
+# View summary statistics
+python -c "
+import json
+from pathlib import Path
+results = sorted(Path('output').glob('final_validation_*.json'))[-1]
+with open(results) as f:
+    data = json.load(f)
+print(f'Overall Accuracy: {data[\"overall_accuracy\"]:.2%}')
+print(f'Total Samples: {data[\"total_samples\"]}')
+print(f'Average Time: {data[\"avg_total_time\"]:.2f}s')
+"
+```
+
+### Pipeline Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     MRAG Pipeline Flow                       │
+└─────────────────────────────────────────────────────────────┘
+
+1. Question Input
+   ↓
+2. CLIP Retrieval (0.01-0.05s)
+   - Encode question text with CLIP
+   - Search 14,475 image corpus using FAISS
+   - Retrieve top-5 similar images
+   ↓
+3. LLaVA Generation (0.5-1.5s)
+   - Format prompt with <image> tokens
+   - Process images + question through LLaVA-1.5-7B
+   - Generate answer with medical domain focus
+   ↓
+4. Answer Output
+```
+
+### Performance Expectations
+
+| Metric | Expected Value | Notes |
+|--------|---------------|-------|
+| **Accuracy** | 53-59% | On perspective change scenarios |
+| **GPU Memory** | ~4-5GB peak | Both models loaded simultaneously |
+| **Retrieval Time** | 0.01-0.05s | With embedding cache |
+| **Generation Time** | 0.5-1.5s | Per question |
+| **Total Time** | 0.6-1.6s | Per question |
+| **Throughput** | ~40-60 samples/min | After initial loading |
+
+### First Run Notes
+
+**The first run will be slower due to:**
+1. Model downloads from HuggingFace (~14GB for LLaVA)
+2. Corpus embedding generation (~5-10 minutes for 14,475 images)
+3. FAISS index building
+
+**Subsequent runs will be fast because:**
+- Models cached locally (~/.cache/huggingface/)
+- Embeddings cached (data/embeddings/corpus_embeddings.npy)
+- FAISS index cached (data/embeddings/faiss_index.bin)
+
 ## 🔧 Configuration
 
 ### Hardware Optimization
@@ -194,9 +341,15 @@ print(f'Memory limit: {config.model.max_memory_gb}GB')
 |--------|--------|-------|--------------|
 | Sprint 1 | ✅ Complete | Foundation | Interfaces, config, memory mgmt |
 | Sprint 2 | ✅ Complete | Dataset | MRAG-Bench data processing |
-| Sprint 3 | 🔄 Ready | Retrieval | CLIP image retrieval |
-| Sprint 4 | ⏳ Pending | Generation | LLaVA integration |
-| Sprint 5+ | ⏳ Pending | Optimization | Performance tuning |
+| Sprint 3 | ✅ Complete | Retrieval | CLIP image retrieval with FAISS |
+| Sprint 4 | ✅ Complete | Generation | LLaVA-1.5-7B integration |
+| Sprint 5 | ✅ Complete | Evaluation | MRAG-Bench evaluator |
+| Sprint 6 | ✅ Complete | Pipeline | End-to-end orchestration |
+| Sprint 7 | ✅ Complete | MVP Testing | Angle scenario validation |
+| Sprint 8 | ✅ Complete | Optimization | Performance benchmarking |
+| Sprint 9 | ✅ Complete | Multi-scenario | All 4 perspective scenarios |
+| Sprint 10 | ✅ Complete | Validation | Statistical accuracy validation |
+| Sprint 11 | ✅ Complete | Documentation | Production-ready docs & tools |
 
 ## 🎯 Success Metrics
 
