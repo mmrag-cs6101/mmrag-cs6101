@@ -184,8 +184,7 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 inputs = self.processor(
                     text=prompt,
                     images=images,
-                    return_tensors="pt",
-                    padding=True
+                    return_tensors="pt"
                 )
 
                 # Add image_sizes if not present (required by newer LLaVA models)
