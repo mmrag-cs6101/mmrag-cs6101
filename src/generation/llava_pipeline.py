@@ -105,7 +105,8 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 logger.info("Loading LLaVA processor...")
                 self.processor = LlavaNextProcessor.from_pretrained(
                     self.config.model_name,
-                    torch_dtype=torch.float16 if self.config.torch_dtype == "float16" else torch.float32
+                    torch_dtype=torch.float16 if self.config.torch_dtype == "float16" else torch.float32,
+                    use_fast=True
                 )
 
                 # Load model with quantization
