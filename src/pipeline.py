@@ -7,8 +7,10 @@ Integrates CLIP retrieval with LLaVA generation with memory management.
 
 import time
 import logging
+import numpy as np
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
+from pathlib import Path
 from PIL import Image
 
 from .config import MRAGConfig
@@ -134,6 +136,56 @@ class MRAGPipeline:
 
         logger.info(f"Dataset initialized with {validation_results['total_samples']} samples")
 
+    def _encode_corpus_in_batches(self, corpus_paths: List[str], batch_size: int = 32) -> np.ndarray:
+        """
+        Encode corpus images in batches to avoid memory issues.
+
+        Args:
+            corpus_paths: List of image paths to encode
+            batch_size: Number of images to process per batch
+
+        Returns:
+            Numpy array of embeddings
+        """
+        import numpy as np
+        from PIL import Image
+
+        all_embeddings = []
+        total_batches = (len(corpus_paths) + batch_size - 1) // batch_size
+
+        logger.info(f"Encoding {len(corpus_paths)} images in {total_batches} batches of {batch_size}...")
+
+        for batch_idx in range(0, len(corpus_paths), batch_size):
+            batch_paths = corpus_paths[batch_idx:batch_idx + batch_size]
+            batch_num = batch_idx // batch_size + 1
+
+            if batch_num % 10 == 0 or batch_num == total_batches:
+                logger.info(f"Processing batch {batch_num}/{total_batches}...")
+
+            # Load batch images
+            batch_images = []
+            for path in batch_paths:
+                try:
+                    img = Image.open(path).convert('RGB')
+                    batch_images.append(img)
+                except Exception as e:
+                    logger.warning(f"Failed to load image {path}: {e}")
+                    # Use a blank image as placeholder
+                    batch_images.append(Image.new('RGB', (224, 224), (0, 0, 0)))
+
+            # Encode batch
+            batch_embeddings = self.retriever.encode_images(batch_images)
+            all_embeddings.append(batch_embeddings)
+
+            # Clean up
+            del batch_images
+            if batch_num % 50 == 0:
+                import gc
+                gc.collect()
+
+        logger.info("Concatenating embeddings...")
+        return np.vstack(all_embeddings)
+
     @handle_errors
     def load_retriever(self) -> None:
         """Load CLIP retrieval component."""
@@ -164,12 +216,38 @@ class MRAGPipeline:
             corpus_paths = self.dataset.get_retrieval_corpus()
             logger.info(f"Encoding {len(corpus_paths)} corpus images...")
 
-            # Load images
-            from PIL import Image
-            corpus_images = [Image.open(path).convert('RGB') for path in corpus_paths]
+            # Check for cached embeddings
+            import os
+            import numpy as np
+            cache_dir = Path(self.config.dataset.embedding_cache_path)
+            cache_dir.mkdir(parents=True, exist_ok=True)
+            embeddings_cache_path = cache_dir / "corpus_embeddings.npy"
+            paths_cache_path = cache_dir / "corpus_paths.txt"
 
-            # Encode images to get embeddings
-            embeddings = self.retriever.encode_images(corpus_images)
+            if embeddings_cache_path.exists() and paths_cache_path.exists():
+                logger.info("Loading cached embeddings...")
+                embeddings = np.load(embeddings_cache_path)
+                with open(paths_cache_path, 'r') as f:
+                    cached_paths = [line.strip() for line in f]
+
+                # Verify cache matches current corpus
+                if cached_paths == corpus_paths:
+                    logger.info(f"Using cached embeddings for {len(corpus_paths)} images")
+                else:
+                    logger.warning("Cache mismatch, re-encoding corpus...")
+                    embeddings = self._encode_corpus_in_batches(corpus_paths)
+                    np.save(embeddings_cache_path, embeddings)
+                    with open(paths_cache_path, 'w') as f:
+                        f.write('\n'.join(corpus_paths))
+            else:
+                logger.info("No cache found, encoding corpus in batches...")
+                embeddings = self._encode_corpus_in_batches(corpus_paths)
+
+                # Save cache
+                logger.info("Saving embeddings cache...")
+                np.save(embeddings_cache_path, embeddings)
+                with open(paths_cache_path, 'w') as f:
+                    f.write('\n'.join(corpus_paths))
 
             # Build FAISS index
             self.retriever.build_index(embeddings, corpus_paths)
