@@ -187,6 +187,12 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     padding=True
                 ).to(self.device)
 
+                # Add image_sizes if not present (required by newer LLaVA models)
+                if "image_sizes" not in inputs and images:
+                    # Get image sizes from the actual images
+                    image_sizes = [img.size for img in images]  # List of (width, height) tuples
+                    inputs["image_sizes"] = image_sizes
+
                 # Generate response
                 logger.debug(f"Generating response for prompt length: {len(prompt)}")
 
