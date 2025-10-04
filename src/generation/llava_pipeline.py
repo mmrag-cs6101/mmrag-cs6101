@@ -186,13 +186,17 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     images=images,
                     return_tensors="pt",
                     padding=True
-                ).to(self.device)
+                )
 
                 # Add image_sizes if not present (required by newer LLaVA models)
                 if "image_sizes" not in inputs and images:
                     # Get image sizes from the actual images
-                    image_sizes = [img.size for img in images]  # List of (width, height) tuples
+                    import torch
+                    image_sizes = torch.tensor([[img.size[1], img.size[0]] for img in images])  # (height, width) format
                     inputs["image_sizes"] = image_sizes
+
+                # Move all inputs to device
+                inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
                 # Generate response
                 logger.debug(f"Generating response for prompt length: {len(prompt)}")
