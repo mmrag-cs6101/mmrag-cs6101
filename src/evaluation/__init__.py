@@ -5,6 +5,7 @@ Provides MRAG-Bench evaluation framework for accuracy calculation and performanc
 Implements evaluation methodology matching the original paper.
 
 Sprint 8 adds performance optimization and comprehensive benchmarking capabilities.
+Sprint 10 adds final accuracy validation with multi-run statistical analysis.
 """
 
 from .results import EvaluationResults
@@ -30,6 +31,15 @@ from .benchmarking import (
     BenchmarkSuite
 )
 
+# Sprint 10: Final Accuracy Validation
+from .final_validator import (
+    FinalAccuracyValidator,
+    FinalValidationResults,
+    ScenarioFinalResults,
+    SystemPerformanceMetrics,
+    MultiRunStatistics
+)
+
 __all__ = [
     # Core evaluation
     "EvaluationResults",
@@ -52,5 +62,11 @@ __all__ = [
     "LatencyBenchmarks",
     "PerformanceBenchmark",
     "BenchmarkResult",
-    "BenchmarkSuite"
+    "BenchmarkSuite",
+    # Sprint 10: Final validation
+    "FinalAccuracyValidator",
+    "FinalValidationResults",
+    "ScenarioFinalResults",
+    "SystemPerformanceMetrics",
+    "MultiRunStatistics",
 ]
