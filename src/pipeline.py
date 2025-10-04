@@ -296,7 +296,7 @@ class MRAGPipeline:
 
         logger.info("Unloading CLIP retriever...")
         if self.retriever is not None:
-            self.retriever.unload_model()
+            self.retriever.clear_memory()
             self.retriever = None
 
         self.retriever_loaded = False
