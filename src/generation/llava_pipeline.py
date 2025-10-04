@@ -15,8 +15,8 @@ from PIL import Image
 import torch
 import torch.nn.functional as F
 from transformers import (
-    LlavaNextProcessor,
-    LlavaNextForConditionalGeneration,
+    AutoProcessor,
+    LlavaForConditionalGeneration,
     BitsAndBytesConfig,
     pipeline
 )
@@ -103,15 +103,13 @@ class LLaVAGenerationPipeline(GenerationPipeline):
             try:
                 # Load processor first (lighter weight)
                 logger.info("Loading LLaVA processor...")
-                self.processor = LlavaNextProcessor.from_pretrained(
-                    self.config.model_name,
-                    torch_dtype=torch.float16 if self.config.torch_dtype == "float16" else torch.float32,
-                    use_fast=False  # Fast processor doesn't include image_sizes
+                self.processor = AutoProcessor.from_pretrained(
+                    self.config.model_name
                 )
 
                 # Load model with quantization
                 logger.info("Loading LLaVA model with 4-bit quantization...")
-                self.model = LlavaNextForConditionalGeneration.from_pretrained(
+                self.model = LlavaForConditionalGeneration.from_pretrained(
                     self.config.model_name,
                     quantization_config=self.quantization_config,
                     device_map="auto",
@@ -180,33 +178,19 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                         metadata={"error": "No valid images provided"}
                     )
 
-                # Process text and images separately to handle image_sizes properly
+                # Use the processor's unified call method
                 import torch
 
                 # Ensure images is a list
                 image_list = images if isinstance(images, list) else [images]
 
-                # Process images separately to get pixel_values
-                image_inputs = self.processor.image_processor(
+                # Call processor - it should handle image_sizes internally
+                # The key is to pass images directly without extra kwargs
+                inputs = self.processor(
+                    text=prompt,
                     images=image_list,
                     return_tensors="pt"
                 )
-
-                # Process text
-                text_inputs = self.processor.tokenizer(
-                    text=prompt,
-                    return_tensors="pt"
-                )
-
-                # Manually add image_sizes (required by LLaVA Next)
-                image_sizes = torch.tensor([[img.size[1], img.size[0]] for img in image_list])
-
-                # Combine inputs
-                inputs = {
-                    **text_inputs,
-                    **image_inputs,
-                    "image_sizes": image_sizes
-                }
 
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
