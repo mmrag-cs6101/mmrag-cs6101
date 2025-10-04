@@ -277,6 +277,9 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         if not question.endswith(('?', '.', '!')):
             question += "?"
 
+        # Add image tokens for each image (required by LLaVA)
+        image_tokens = "<image>\n" * len(context.images)
+
         # Handle retrieved images context
         if len(context.images) > 1:
             image_context = f"Based on the {len(context.images)} medical images provided, "
@@ -285,8 +288,8 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         else:
             image_context = ""
 
-        # Construct final prompt
-        prompt = f"{system_prompt}\n\n{image_context}{question}\n\nAnswer:"
+        # Construct final prompt with image tokens
+        prompt = f"{image_tokens}{system_prompt}\n\n{image_context}{question}\n\nAnswer:"
 
         return prompt
 
