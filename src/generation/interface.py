@@ -15,6 +15,7 @@ class MultimodalContext:
     """Multimodal context for generation."""
     question: str
     images: List[Image.Image]
+    choices: Dict[str, str] = None  # Multiple choice options: {'A': 'text', 'B': 'text', ...}
     image_paths: List[str] = None
     context_metadata: Dict[str, Any] = None
 
@@ -23,6 +24,8 @@ class MultimodalContext:
             self.image_paths = []
         if self.context_metadata is None:
             self.context_metadata = {}
+        if self.choices is None:
+            self.choices = {}
 
 
 @dataclass

@@ -189,11 +189,12 @@ class MRAGBenchEvaluator:
             try:
                 logger.debug(f"Processing sample {i+1}/{len(samples)}: {sample.question_id}")
 
-                # Process through pipeline
+                # Process through pipeline - pass query image for image-based retrieval (MRAG-Bench format)
                 result = self.pipeline.process_query(
                     question=sample.question,
                     question_id=sample.question_id,
                     ground_truth=sample.ground_truth,
+                    query_image_path=sample.image_path,  # Use query image for retrieval
                     use_sequential_loading=False
                 )
 
@@ -388,17 +389,7 @@ class MRAGBenchEvaluator:
         union = generated_words.union(ground_truth_words)
         jaccard_similarity = len(intersection) / len(union) if union else 0.0
 
-        # Medical-specific keywords matching
-        medical_keywords = self._extract_medical_keywords(ground_truth_norm)
-        if medical_keywords:
-            keyword_matches = sum(1 for keyword in medical_keywords if keyword in generated_norm)
-            keyword_match_rate = keyword_matches / len(medical_keywords)
-
-            # High keyword match rate indicates correct medical understanding
-            if keyword_match_rate >= 0.7:
-                return True
-
-        # Threshold for partial correctness (tuned for medical domain)
+        # Threshold for partial correctness
         return jaccard_similarity >= 0.6
 
     def _normalize_answer(self, answer: str) -> str:
@@ -410,34 +401,11 @@ class MRAGBenchEvaluator:
         answer = re.sub(r'[^\w\s]', ' ', answer)
         answer = re.sub(r'\s+', ' ', answer)
 
-        # Remove common stop words that don't affect medical meaning
+        # Remove common stop words
         stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'this', 'that', 'these', 'those'}
         words = [word for word in answer.split() if word not in stop_words]
 
         return ' '.join(words)
-
-    def _extract_medical_keywords(self, text: str) -> List[str]:
-        """Extract important medical keywords from text."""
-        medical_terms = [
-            # Anatomical terms
-            'heart', 'lung', 'brain', 'liver', 'kidney', 'stomach', 'spine', 'bone', 'muscle', 'blood',
-            'artery', 'vein', 'nerve', 'tissue', 'organ', 'chest', 'abdomen', 'head', 'neck', 'arm', 'leg',
-
-            # Medical conditions/pathology
-            'fracture', 'tumor', 'cancer', 'infection', 'inflammation', 'pneumonia', 'stroke', 'disease',
-            'lesion', 'mass', 'nodule', 'cyst', 'edema', 'bleeding', 'clot', 'blockage', 'stenosis',
-
-            # Medical procedures/imaging
-            'surgery', 'biopsy', 'scan', 'xray', 'mri', 'ct', 'ultrasound', 'diagnosis', 'treatment',
-            'therapy', 'medication', 'prescription', 'procedure', 'examination', 'test', 'analysis',
-
-            # Medical descriptors
-            'acute', 'chronic', 'benign', 'malignant', 'normal', 'abnormal', 'positive', 'negative',
-            'severe', 'mild', 'moderate', 'stable', 'unstable', 'enlarged', 'decreased', 'increased'
-        ]
-
-        words = text.lower().split()
-        return [word for word in words if word in medical_terms]
 
     def _analyze_errors(self, scenario_results: Dict[str, ScenarioMetrics]) -> Dict[str, Any]:
         """Analyze errors across scenarios to identify patterns."""

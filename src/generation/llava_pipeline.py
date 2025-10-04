@@ -1,7 +1,7 @@
 """
 LLaVA Generation Pipeline Implementation
 
-Concrete implementation of LLaVA-1.5-7B with 4-bit quantization for medical image question answering.
+Concrete implementation of LLaVA-1.5-7B with 4-bit quantization for multimodal question answering.
 Optimized for 16GB VRAM constraints with aggressive memory management.
 """
 
@@ -38,9 +38,9 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
     Features:
     - 4-bit quantization with BitsAndBytes for memory efficiency
-    - Multimodal prompt construction for medical domain
+    - Multimodal prompt construction for visual question answering
     - Dynamic model loading/unloading for memory management
-    - Medical-specific response formatting and validation
+    - Response formatting and validation
     - Comprehensive error handling and recovery mechanisms
     """
 
@@ -74,6 +74,8 @@ class LLaVAGenerationPipeline(GenerationPipeline):
             "do_sample": config.do_sample,
             "top_p": config.top_p,
             "top_k": config.top_k,
+            "repetition_penalty": 1.2,  # Prevent repetitive tokens
+            "no_repeat_ngram_size": 3,  # Prevent repeating 3-grams
             "pad_token_id": None,  # Will be set after model loading
             "eos_token_id": None,  # Will be set after model loading
         }
@@ -171,7 +173,7 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 if not images:
                     # No valid images, return a default response
                     return GenerationResult(
-                        answer="I cannot provide an answer without valid medical images.",
+                        answer="I cannot provide an answer without valid images.",
                         confidence_score=0.0,
                         generation_time=time.time() - start_time,
                         memory_usage=self.get_memory_usage(),
@@ -212,7 +214,7 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     skip_special_tokens=True
                 ).strip()
 
-                # Post-process response for medical domain
+                # Post-process response
                 response = self._post_process_response(response)
 
                 # Calculate generation time and memory usage
@@ -257,41 +259,81 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
     def construct_prompt(self, context: MultimodalContext) -> str:
         """
-        Construct optimized prompt for medical image question answering.
+        Construct prompt for multimodal question answering.
 
         Args:
             context: MultimodalContext with question and images
 
         Returns:
-            Formatted prompt string optimized for medical domain
+            Formatted prompt string for the model
         """
-        # Medical domain-specific prompt template
-        system_prompt = (
-            "You are a medical AI assistant specialized in analyzing medical images. "
-            "Carefully examine the provided medical images and answer the question accurately. "
-            "Focus on observable medical findings and provide clear, concise responses."
-        )
+        # Add image tokens for each image (required by LLaVA)
+        image_tokens = "<image>\n" * len(context.images)
 
         # Format the question
         question = context.question.strip()
         if not question.endswith(('?', '.', '!')):
             question += "?"
 
-        # Add image tokens for each image (required by LLaVA)
-        image_tokens = "<image>\n" * len(context.images)
+        # Direct prompt - be VERY specific to get detailed answers like breed names
+        question_lower = question.lower()
+        if any(phrase in question_lower for phrase in ['can you identify', 'can you tell', 'which', 'what']):
+            # Request specific details - not generic categories
+            if 'animal' in question_lower:
+                directive = "Identify the specific breed or species name of this animal (not just 'dog' or 'cat', but the exact breed like 'golden_retriever' or 'siamese')"
+            elif 'city' in question_lower or 'place' in question_lower or 'location' in question_lower:
+                directive = "Name the specific city, landmark, or location (not just 'building' or 'tower', but the exact name like 'eiffel_tower')"
+            elif 'engine' in question_lower or 'car' in question_lower or 'vehicle' in question_lower:
+                directive = "Specify the exact model or type (not just 'car' or 'engine', but the specific model name)"
+            else:
+                directive = "Provide the most specific answer possible (exact name, model, breed, or species)"
 
-        # Handle retrieved images context
-        if len(context.images) > 1:
-            image_context = f"Based on the {len(context.images)} medical images provided, "
-        elif len(context.images) == 1:
-            image_context = "Based on the medical image provided, "
+            system_prompt = f"{directive}. Give only the specific name or term with underscores, nothing else."
         else:
-            image_context = ""
+            system_prompt = "Answer with the most specific term possible. Use underscores between words. No explanation."
 
-        # Construct final prompt with image tokens
-        prompt = f"{image_tokens}{system_prompt}\n\n{image_context}{question}\n\nAnswer:"
+        # Construct final prompt
+        prompt = f"{image_tokens}{system_prompt}\n\nAnswer:"
 
         return prompt
+
+    def _extract_answer_choice(self, response: str) -> str:
+        """
+        Extract the answer choice (A, B, C, D) from model response.
+
+        Args:
+            response: Raw model output
+
+        Returns:
+            Single letter (A, B, C, or D) or empty string if not found
+        """
+        import re
+
+        # Remove whitespace
+        response = response.strip().upper()
+
+        # Check if response is already just a single letter
+        if response in ['A', 'B', 'C', 'D']:
+            return response
+
+        # Try to find first occurrence of A, B, C, or D
+        # Pattern: Look for standalone letter (not part of word)
+        match = re.search(r'\b([ABCD])\b', response)
+        if match:
+            return match.group(1)
+
+        # Check first character if it's a valid choice
+        if response and response[0] in ['A', 'B', 'C', 'D']:
+            return response[0]
+
+        # Look for pattern like "Answer: A" or "The answer is B"
+        match = re.search(r'(?:answer|choice|select|option)[\s:]*([ABCD])', response, re.IGNORECASE)
+        if match:
+            return match.group(1).upper()
+
+        # Default to empty if no valid choice found
+        logger.warning(f"Could not extract answer choice from: {response[:100]}")
+        return ""
 
     def _prepare_images(self, images: List[Image.Image]) -> List[Image.Image]:
         """
@@ -338,7 +380,7 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
     def _post_process_response(self, response: str) -> str:
         """
-        Post-process generated response for medical domain.
+        Post-process generated response.
 
         Args:
             response: Raw model response
@@ -383,25 +425,21 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         # Simple heuristic-based confidence calculation
         confidence = 0.5  # Base confidence
 
-        # Response length factor
-        if len(response) > 20:
+        # Response length factor (short, specific answers are better)
+        if len(response) > 5:
             confidence += 0.2
-        if len(response) > 50:
+        if len(response) > 10:
             confidence += 0.1
 
-        # Medical keywords factor
-        medical_keywords = [
-            'medical', 'clinical', 'diagnosis', 'symptom', 'treatment',
-            'patient', 'condition', 'anatomical', 'pathology', 'imaging'
-        ]
-        keyword_count = sum(1 for keyword in medical_keywords if keyword.lower() in response.lower())
-        confidence += min(0.3, keyword_count * 0.1)
+        # Penalty for overly long responses (likely verbose/wrong)
+        if len(response) > 100:
+            confidence -= 0.2
 
         # Avoid overconfident responses
         if "I cannot" in response or "error" in response.lower():
             confidence = min(confidence, 0.3)
 
-        return min(1.0, confidence)
+        return max(0.1, min(1.0, confidence))
 
     @handle_errors
     def clear_memory(self) -> None:

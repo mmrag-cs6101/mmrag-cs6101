@@ -326,6 +326,7 @@ class MRAGPipeline:
         question: str,
         question_id: str = "",
         ground_truth: str = "",
+        query_image_path: Optional[str] = None,
         use_sequential_loading: bool = False
     ) -> PipelineResult:
         """
@@ -335,6 +336,7 @@ class MRAGPipeline:
             question: Question text
             question_id: Unique question identifier
             ground_truth: Ground truth answer (for evaluation)
+            query_image_path: Path to query image (for image-based retrieval, MRAG-Bench format)
             use_sequential_loading: If True, load/unload models sequentially to save memory
 
         Returns:
@@ -363,20 +365,31 @@ class MRAGPipeline:
             if not self.retriever_loaded:
                 self.load_retriever()
 
-            # Perform retrieval
-            retrieval_results = self.retriever.retrieve_similar(
-                question,
-                k=self.config.retrieval.top_k
-            )
+            # Perform retrieval - use image-based retrieval if query image provided (MRAG-Bench format)
+            if query_image_path and Path(query_image_path).exists():
+                query_image = Image.open(query_image_path).convert('RGB')
+                retrieval_results = self.retriever.retrieve_by_image(
+                    query_image,
+                    k=self.config.retrieval.top_k
+                )
+                logger.info(f"Retrieved {len(retrieval_results)} results using query image: {query_image_path}")
+            else:
+                # Fallback to text-based retrieval
+                retrieval_results = self.retriever.retrieve_similar(
+                    question,
+                    k=self.config.retrieval.top_k
+                )
+                logger.info(f"Retrieved {len(retrieval_results)} results using question text")
 
             retrieval_time = time.time() - retrieval_start
 
-            # Load retrieved images
+            # Load retrieved images (limit to top 3 for LLaVA)
             retrieved_images = []
             retrieval_scores = []
             image_paths = []
 
-            for result in retrieval_results:
+            max_images_for_generation = 3  # Limit images to avoid overwhelming LLaVA
+            for result in retrieval_results[:max_images_for_generation]:
                 try:
                     image = Image.open(result.image_path).convert('RGB')
                     retrieved_images.append(image)
@@ -386,7 +399,7 @@ class MRAGPipeline:
                     logger.warning(f"Failed to load retrieved image {result.image_path}: {e}")
                     continue
 
-            logger.info(f"Retrieved {len(retrieved_images)} images in {retrieval_time:.2f}s")
+            logger.info(f"Retrieved {len(retrieval_results)} images, using top {len(retrieved_images)} for generation in {retrieval_time:.2f}s")
 
             # Step 2: Answer Generation
             if use_sequential_loading:

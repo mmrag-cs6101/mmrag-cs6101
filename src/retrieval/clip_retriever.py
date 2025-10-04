@@ -265,6 +265,13 @@ class CLIPRetriever(RetrievalPipeline):
             # Add embeddings to index
             self.index.add(embeddings)
 
+            # Configure IVF index search parameters
+            if isinstance(self.index, faiss.IndexIVFFlat):
+                # Set nprobe to search more clusters for better recall
+                # Use 10% of clusters or at least 10
+                self.index.nprobe = max(10, nlist // 10)
+                logger.info(f"Set IVF nprobe to {self.index.nprobe} (searching {self.index.nprobe}/{nlist} clusters)")
+
             # Store image paths and embeddings
             self.image_paths = image_paths.copy()
             self.embeddings = embeddings.copy()
@@ -340,6 +347,76 @@ class CLIPRetriever(RetrievalPipeline):
 
             logger.debug(
                 f"Retrieved {len(results)} results for query in {retrieval_time:.3f}s. "
+                f"Top score: {results[0].similarity_score:.3f}" if results else "No results found"
+            )
+
+            return results
+
+    @handle_errors
+    def retrieve_by_image(self, query_image: Image.Image, k: Optional[int] = None) -> List[RetrievalResult]:
+        """
+        Retrieve most similar images for an image query (image-to-image retrieval).
+
+        Args:
+            query_image: PIL Image to use as query
+            k: Number of results to return (defaults to config.top_k)
+
+        Returns:
+            List of RetrievalResult objects sorted by similarity
+        """
+        if self.index is None:
+            raise MRAGError("Index not built. Call build_index() first.")
+
+        if k is None:
+            k = self.config.top_k
+
+        start_time = time.time()
+
+        with self.memory_manager.memory_guard("Image similarity retrieval"):
+            # Encode query image
+            query_embedding = self.encode_images([query_image])
+
+            if query_embedding.shape[0] == 0:
+                logger.warning("Failed to encode query image, returning empty results")
+                return []
+
+            # Search index
+            scores, indices = self.index.search(query_embedding, k)
+
+            # Create results
+            results = []
+            for i in range(len(indices[0])):
+                idx = indices[0][i]
+                score = float(scores[0][i])
+
+                # Skip invalid indices
+                if idx < 0 or idx >= len(self.image_paths):
+                    continue
+
+                # Apply similarity threshold
+                if score < self.config.similarity_threshold:
+                    continue
+
+                result = RetrievalResult(
+                    image_path=self.image_paths[idx],
+                    similarity_score=score,
+                    embedding=self.embeddings[idx] if self.embeddings is not None else None,
+                    metadata={
+                        "index": idx,
+                        "query_type": "image"
+                    }
+                )
+                results.append(result)
+
+            # Update stats
+            retrieval_time = time.time() - start_time
+            self.stats["total_queries_processed"] += 1
+            self.stats["avg_retrieval_time"] = (
+                self.stats["avg_retrieval_time"] * 0.9 + retrieval_time * 0.1
+            )
+
+            logger.debug(
+                f"Retrieved {len(results)} results for image query in {retrieval_time:.3f}s. "
                 f"Top score: {results[0].similarity_score:.3f}" if results else "No results found"
             )
 
