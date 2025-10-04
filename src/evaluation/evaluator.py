@@ -194,7 +194,7 @@ class MRAGBenchEvaluator:
                     question=sample.question,
                     question_id=sample.question_id,
                     ground_truth=sample.ground_truth,
-                    use_sequential_loading=True
+                    use_sequential_loading=False
                 )
 
                 results.append(result)

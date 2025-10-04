@@ -673,10 +673,8 @@ class MRAGPipeline:
         """Optimize memory usage when under pressure."""
         logger.info("Applying memory optimization...")
 
-        # Clear unused model components
-        if self.retriever_loaded and self.generator_loaded:
-            # In sequential mode, we shouldn't have both loaded
-            self.unload_retriever()
+        # Skip unloading models - we have enough VRAM for both
+        # Old sequential loading logic removed - both CLIP and LLaVA fit in 16GB
 
         # Aggressive memory cleanup
         self.memory_manager.clear_gpu_memory(aggressive=True)
