@@ -268,28 +268,29 @@ class LLaVAGenerationPipeline(GenerationPipeline):
             Formatted prompt string for the model
         """
         # Add image tokens for each image (required by LLaVA)
-        image_tokens = "<image>\n" * len(context.images)
+        image_tokens = "".join([f"<image>" for _ in context.images])
 
         # Format the question
         question = context.question.strip()
-        if not question.endswith(('?', '.', '!')):
-            question += "?"
 
         # Check if this is a multiple-choice question
         if context.choices and len(context.choices) > 0:
-            # Multiple-choice format (MRAG-Bench official format)
-            choices_text = "\n".join([f"{k}. {v}" for k, v in sorted(context.choices.items())])
+            # MRAG-Bench official prompt format
+            # Format: "Instruction: ... {Image}{Image}... Question: ... Choices: (A) ... Answer:"
+            choices_text = "\n".join([f"({k}) {v}" for k, v in sorted(context.choices.items())])
             prompt = (
-                f"{image_tokens}"
-                f"Answer the following multiple-choice question by selecting the correct option (A, B, C, or D).\n\n"
+                f"Instruction: You will be given one question concerning several images. "
+                f"The first image is the input image, others are retrieved examples to help you. "
+                f"Answer with the option's letter from the given choices directly.\n\n"
+                f"{image_tokens}\n\n"
                 f"Question: {question}\n\n"
-                f"{choices_text}\n\n"
-                f"Answer with only the letter (A, B, C, or D):\n"
+                f"Choices:\n{choices_text}\n\n"
+                f"Answer:"
             )
         else:
             # Open-ended format (fallback)
             system_prompt = "Answer the question with the most specific term possible. Use underscores between words. No explanation."
-            prompt = f"{image_tokens}{system_prompt}\n\nQuestion: {question}\n\nAnswer:"
+            prompt = f"{image_tokens}\n\n{system_prompt}\n\nQuestion: {question}\n\nAnswer:"
 
         return prompt
 
