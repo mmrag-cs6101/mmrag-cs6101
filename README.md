@@ -140,12 +140,25 @@ D. Cairn_terrier
 
 ### Dataset Loading
 
-The dataset is automatically downloaded from HuggingFace on first run:
+**No manual download required!** The dataset is automatically downloaded from HuggingFace on first run.
 
+The evaluation scripts (`eval_simple.py` and `eval_full.py`) will automatically:
+1. Download the dataset from HuggingFace (first run only, ~1-2 minutes)
+2. Cache it locally in `~/.cache/huggingface/datasets/`
+3. Load all 1,353 samples with images
+
+**Verify dataset:**
 ```bash
 source mrag-bench-env/bin/activate
-python -c "from datasets import load_dataset; ds = load_dataset('uclanlp/MRAG-Bench', split='test'); print(f'Loaded {len(ds)} samples')"
+python -c "from datasets import load_dataset; ds = load_dataset('uclanlp/MRAG-Bench', split='test'); print(f'✅ Loaded {len(ds)} samples with {len(ds[0][\"gt_images\"])} GT images each')"
 ```
+
+**Expected output:**
+```
+✅ Loaded 1353 samples with 5 GT images each
+```
+
+> **Note:** The old `download_mrag_dataset.py` script is deprecated and not needed. The HuggingFace dataset includes everything automatically.
 
 ## 🏗️ System Architecture
 
