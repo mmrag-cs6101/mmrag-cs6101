@@ -275,25 +275,21 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         if not question.endswith(('?', '.', '!')):
             question += "?"
 
-        # Direct prompt - be VERY specific to get detailed answers like breed names
-        question_lower = question.lower()
-        if any(phrase in question_lower for phrase in ['can you identify', 'can you tell', 'which', 'what']):
-            # Request specific details - not generic categories
-            if 'animal' in question_lower:
-                directive = "Identify the specific breed or species name of this animal (not just 'dog' or 'cat', but the exact breed like 'golden_retriever' or 'siamese')"
-            elif 'city' in question_lower or 'place' in question_lower or 'location' in question_lower:
-                directive = "Name the specific city, landmark, or location (not just 'building' or 'tower', but the exact name like 'eiffel_tower')"
-            elif 'engine' in question_lower or 'car' in question_lower or 'vehicle' in question_lower:
-                directive = "Specify the exact model or type (not just 'car' or 'engine', but the specific model name)"
-            else:
-                directive = "Provide the most specific answer possible (exact name, model, breed, or species)"
-
-            system_prompt = f"{directive}. Give only the specific name or term with underscores, nothing else."
+        # Check if this is a multiple-choice question
+        if context.choices and len(context.choices) > 0:
+            # Multiple-choice format (MRAG-Bench official format)
+            choices_text = "\n".join([f"{k}. {v}" for k, v in sorted(context.choices.items())])
+            prompt = (
+                f"{image_tokens}"
+                f"Answer the following multiple-choice question by selecting the correct option (A, B, C, or D).\n\n"
+                f"Question: {question}\n\n"
+                f"{choices_text}\n\n"
+                f"Answer with only the letter (A, B, C, or D):\n"
+            )
         else:
-            system_prompt = "Answer with the most specific term possible. Use underscores between words. No explanation."
-
-        # Construct final prompt
-        prompt = f"{image_tokens}{system_prompt}\n\nAnswer:"
+            # Open-ended format (fallback)
+            system_prompt = "Answer the question with the most specific term possible. Use underscores between words. No explanation."
+            prompt = f"{image_tokens}{system_prompt}\n\nQuestion: {question}\n\nAnswer:"
 
         return prompt
 
