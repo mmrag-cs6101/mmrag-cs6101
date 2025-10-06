@@ -4,7 +4,7 @@
 # baseline results on perspective change scenarios.
 
 model:
-  vlm_name: "llava-hf/llava-1.5-7b-hf"
+  vlm_name: "llava-hf/llava-onevision-qwen2-7b-ov-hf"  # LLaVA-OneVision-7B (newer, better)
   retriever_name: "openai/clip-vit-base-patch32"
   quantization: "4bit"  # 4bit, 8bit, or none
   max_memory_gb: 14.0
