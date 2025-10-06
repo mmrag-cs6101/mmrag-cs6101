@@ -1,11 +1,15 @@
 """Simple evaluation - first 40 samples without scenario filtering."""
 
+import os
 import logging
 import re
 from datasets import load_dataset
 from src.config import MRAGConfig
 from src.pipeline import MRAGPipeline
 from src.generation.interface import MultimodalContext
+
+# Enable faster model downloads with hf_transfer (2-5x faster)
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
