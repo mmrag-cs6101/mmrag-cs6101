@@ -42,10 +42,10 @@ logger.info("Loading full MRAG-Bench dataset from HuggingFace...")
 dataset = load_dataset("uclanlp/MRAG-Bench", split="test")
 logger.info(f"Loaded {len(dataset)} samples")
 
-# Scenario mapping
+# Scenario mapping (MRAG-Bench categories -> perspective change types)
 scenario_mapping = {
     'Scope': 'scope',
-    'Obstruction': 'scope',
+    'Obstruction': 'occlusion',  # Fixed: Obstruction maps to occlusion, not scope
     'Temporal': 'partial',
     'Deformation': 'scope',
     'Biological': 'angle',

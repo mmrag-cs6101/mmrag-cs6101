@@ -52,7 +52,7 @@ class MRAGHFDataset:
         # Map scenario names to perspective change types
         self.scenario_mapping = {
             'Scope': 'scope',
-            'Obstruction': 'scope',
+            'Obstruction': 'occlusion',  # Fixed: Obstruction maps to occlusion, not scope
             'Temporal': 'partial',
             'Deformation': 'scope',
             'Biological': 'angle',

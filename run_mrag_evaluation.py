@@ -58,10 +58,10 @@ def evaluate_mrag_bench(max_samples_per_scenario: int = 10, use_gt_images: bool 
     dataset = load_dataset("uclanlp/MRAG-Bench", split="test")
     logger.info(f"Loaded {len(dataset)} samples")
 
-    # Scenario mapping
+    # Scenario mapping (MRAG-Bench categories -> perspective change types)
     scenario_mapping = {
         'Scope': 'scope',
-        'Obstruction': 'scope',
+        'Obstruction': 'occlusion',  # Fixed: Obstruction maps to occlusion, not scope
         'Temporal': 'partial',
         'Deformation': 'scope',
         'Biological': 'angle',
