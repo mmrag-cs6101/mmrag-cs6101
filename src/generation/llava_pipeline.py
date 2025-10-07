@@ -34,10 +34,10 @@ logger = logging.getLogger(__name__)
 
 class LLaVAGenerationPipeline(GenerationPipeline):
     """
-    LLaVA-1.5-7B based generation pipeline with 4-bit quantization.
+    LLaVA-1.5-7B based generation pipeline with configurable quantization.
 
     Features:
-    - 4-bit quantization with BitsAndBytes for memory efficiency
+    - Configurable quantization (4-bit, 8-bit, or none) with BitsAndBytes
     - Multimodal prompt construction for visual question answering
     - Dynamic model loading/unloading for memory management
     - Response formatting and validation
@@ -82,24 +82,44 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
         logger.info("LLaVA generation pipeline initialized")
 
-    def _create_quantization_config(self) -> BitsAndBytesConfig:
-        """Create optimized 4-bit quantization configuration."""
-        return BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_quant_storage=torch.uint8
-        )
+    def _create_quantization_config(self) -> Optional[BitsAndBytesConfig]:
+        """
+        Create quantization configuration based on config settings.
+
+        Returns:
+            BitsAndBytesConfig for 4-bit or 8-bit, or None for no quantization
+        """
+        quant_mode = self.config.quantization.lower()
+
+        if quant_mode == "4bit":
+            logger.info("Using 4-bit quantization")
+            return BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_quant_storage=torch.uint8
+            )
+        elif quant_mode == "8bit":
+            logger.info("Using 8-bit quantization")
+            return BitsAndBytesConfig(
+                load_in_8bit=True,
+                bnb_8bit_compute_dtype=torch.float16,
+                bnb_8bit_use_double_quant=True
+            )
+        else:
+            logger.info("No quantization - loading full precision model")
+            return None
 
     @handle_errors
     def load_model(self) -> None:
-        """Load and initialize LLaVA model with 4-bit quantization."""
+        """Load and initialize LLaVA model with configured quantization."""
         if self.model_loaded:
             logger.info("LLaVA model already loaded")
             return
 
-        logger.info("Loading LLaVA-1.5-7B with 4-bit quantization...")
+        quant_info = self.config.quantization if self.config.quantization.lower() != "none" else "no quantization"
+        logger.info(f"Loading LLaVA-1.5-7B with {quant_info}...")
 
         with self.memory_manager.memory_guard("LLaVA model loading"):
             try:
@@ -109,15 +129,22 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     self.config.model_name
                 )
 
-                # Load model with quantization
-                logger.info("Loading LLaVA model with 4-bit quantization...")
+                # Load model with optional quantization
+                logger.info(f"Loading LLaVA model with {quant_info}...")
+                model_kwargs = {
+                    "device_map": "auto",
+                    "torch_dtype": torch.float16 if self.config.torch_dtype == "float16" else torch.float32,
+                    "trust_remote_code": True,
+                    "low_cpu_mem_usage": True
+                }
+
+                # Add quantization config if enabled
+                if self.quantization_config is not None:
+                    model_kwargs["quantization_config"] = self.quantization_config
+
                 self.model = LlavaForConditionalGeneration.from_pretrained(
                     self.config.model_name,
-                    quantization_config=self.quantization_config,
-                    device_map="auto",
-                    torch_dtype=torch.float16 if self.config.torch_dtype == "float16" else torch.float32,
-                    trust_remote_code=True,
-                    low_cpu_mem_usage=True
+                    **model_kwargs
                 )
 
                 # Set generation parameters with proper token IDs

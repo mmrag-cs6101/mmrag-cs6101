@@ -6,7 +6,7 @@
 model:
   vlm_name: "llava-hf/llava-1.5-7b-hf"  # LLaVA-1.5-7B (baseline model)
   retriever_name: "openai/clip-vit-base-patch32"
-  quantization: "4bit"  # 4bit, 8bit, or none
+  quantization: "4bit"  # Options: "4bit" (memory efficient), "8bit" (balanced), "none" (full precision)
   max_memory_gb: 14.0
   device: "cuda"
   torch_dtype: "float16"
