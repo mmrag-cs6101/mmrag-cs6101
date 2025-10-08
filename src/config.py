@@ -14,12 +14,24 @@ from pathlib import Path
 @dataclass
 class ModelConfig:
     """Model configuration parameters."""
+    model_type: str = "llava-1.5-7b"  # Options: "llava-1.5-7b", "llava-onevision-7b"
     vlm_name: str = "llava-hf/llava-1.5-7b-hf"
     retriever_name: str = "openai/clip-vit-base-patch32"
     quantization: str = "4bit"
     max_memory_gb: float = 14.0
     device: str = "cuda"
     torch_dtype: str = "float16"
+
+    # Model mapping
+    MODEL_MAPPING = {
+        "llava-1.5-7b": "llava-hf/llava-1.5-7b-hf",
+        "llava-onevision-7b": "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+    }
+
+    def __post_init__(self):
+        """Resolve model_type to vlm_name if needed."""
+        if self.model_type in self.MODEL_MAPPING:
+            self.vlm_name = self.MODEL_MAPPING[self.model_type]
 
 
 @dataclass
