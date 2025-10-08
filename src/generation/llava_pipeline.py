@@ -216,13 +216,22 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 # Ensure images is a list
                 image_list = images if isinstance(images, list) else [images]
 
-                # Call processor - it should handle image_sizes internally
-                # The key is to pass images directly without extra kwargs
-                inputs = self.processor(
-                    text=prompt,
-                    images=image_list,
-                    return_tensors="pt"
-                )
+                # LLaVA-OneVision processes images differently than LLaVA-1.5
+                if self.is_onevision:
+                    # OneVision: Pass images as a nested list [[img1, img2, img3]]
+                    # This tells the processor these are multiple images for one prompt
+                    inputs = self.processor(
+                        text=prompt,
+                        images=[image_list],  # Nested list for multi-image input
+                        return_tensors="pt"
+                    )
+                else:
+                    # LLaVA-1.5: Pass images as flat list [img1, img2, img3]
+                    inputs = self.processor(
+                        text=prompt,
+                        images=image_list,
+                        return_tensors="pt"
+                    )
 
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
@@ -234,18 +243,6 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     # Remove incompatible parameters for OneVision (uses SiglipVisionModel)
                     excluded_keys = {'batch_num_images', 'image_sizes'}
                     generation_inputs = {k: v for k, v in inputs.items() if k not in excluded_keys}
-
-                    # Fix pixel_values shape for OneVision if needed
-                    # SiglipVisionModel expects [batch, channels, height, width]
-                    # But processor may produce [batch, num_images, channels, height, width]
-                    if 'pixel_values' in generation_inputs:
-                        pv = generation_inputs['pixel_values']
-                        if pv.dim() == 5:
-                            # Flatten batch and num_images dimensions
-                            batch, num_imgs, c, h, w = pv.shape
-                            generation_inputs['pixel_values'] = pv.reshape(batch * num_imgs, c, h, w)
-                            logger.debug(f"Reshaped pixel_values from {pv.shape} to {generation_inputs['pixel_values'].shape}")
-
                     logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images, image_sizes)")
                 else:
                     # Keep all inputs for LLaVA-1.5
