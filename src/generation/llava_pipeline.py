@@ -205,16 +205,11 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         with self.memory_manager.memory_guard("LLaVA generation"):
             try:
                 # Prepare images for processing
-                # For OneVision: only prepare the first image
-                if self.is_onevision:
-                    images_to_prepare = context.images[:1]
-                    logger.warning(f"LLaVA-OneVision: Using only first image of {len(context.images)} images (multi-image not yet supported)")
-                else:
-                    images_to_prepare = context.images
+                if not self.is_onevision:
                     # Construct prompt for LLaVA-1.5
                     prompt = self.construct_prompt(context)
 
-                images = self._prepare_images(images_to_prepare)
+                images = self._prepare_images(context.images)
 
                 if not images:
                     # No valid images, return a default response
@@ -231,27 +226,43 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
                 # Process images based on model type
                 if self.is_onevision:
-                    # OneVision: Use apply_chat_template for proper formatting
-                    # Build conversation format
-                    conversation = [
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "image"},
-                                {"type": "text", "text": f"{context.question}"}
-                            ]
-                        }
-                    ]
+                    # OneVision: Use apply_chat_template with multiple images
+                    # Build conversation format with multiple image tokens
+                    content = []
+
+                    # Add image token for each image
+                    for _ in images:
+                        content.append({"type": "image"})
+
+                    # Add the question text and choices
+                    if context.choices and len(context.choices) > 0:
+                        # Format as multiple-choice question
+                        choices_text = "\n".join([f"({k}) {v}" for k, v in sorted(context.choices.items())])
+                        question_text = (
+                            f"You will be given question concerning several images. "
+                            f"The first image is the input image, others are retrieved examples to help you. "
+                            f"Answer with the option's letter from the given choices directly.\n\n"
+                            f"Question: {context.question}\n\n"
+                            f"Choices:\n{choices_text}\n\n"
+                            f"Answer:"
+                        )
+                    else:
+                        question_text = context.question
+
+                    content.append({"type": "text", "text": question_text})
+
+                    conversation = [{"role": "user", "content": content}]
 
                     # Apply chat template
                     prompt = self.processor.apply_chat_template(conversation, add_generation_prompt=True)
 
-                    # Process with image
+                    # Process with all images
                     inputs = self.processor(
                         text=prompt,
-                        images=images[0],
+                        images=images,  # Pass all images
                         return_tensors="pt"
                     )
+                    logger.info(f"OneVision: Processing {len(images)} images")
                 else:
                     # LLaVA-1.5: Pass images as list
                     inputs = self.processor(
