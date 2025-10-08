@@ -228,11 +228,13 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
                 # Filter inputs based on model type
-                # LLaVA-OneVision doesn't accept batch_num_images, but LLaVA-1.5 does
+                # LLaVA-OneVision doesn't accept batch_num_images or image_sizes
+                # LLaVA-1.5 accepts both
                 if self.is_onevision:
-                    # Remove batch_num_images for OneVision
-                    generation_inputs = {k: v for k, v in inputs.items() if k != 'batch_num_images'}
-                    logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images)")
+                    # Remove incompatible parameters for OneVision (uses SiglipVisionModel)
+                    excluded_keys = {'batch_num_images', 'image_sizes'}
+                    generation_inputs = {k: v for k, v in inputs.items() if k not in excluded_keys}
+                    logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images, image_sizes)")
                 else:
                     # Keep all inputs for LLaVA-1.5
                     generation_inputs = inputs
