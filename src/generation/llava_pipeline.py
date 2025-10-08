@@ -234,6 +234,18 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     # Remove incompatible parameters for OneVision (uses SiglipVisionModel)
                     excluded_keys = {'batch_num_images', 'image_sizes'}
                     generation_inputs = {k: v for k, v in inputs.items() if k not in excluded_keys}
+
+                    # Fix pixel_values shape for OneVision if needed
+                    # SiglipVisionModel expects [batch, channels, height, width]
+                    # But processor may produce [batch, num_images, channels, height, width]
+                    if 'pixel_values' in generation_inputs:
+                        pv = generation_inputs['pixel_values']
+                        if pv.dim() == 5:
+                            # Flatten batch and num_images dimensions
+                            batch, num_imgs, c, h, w = pv.shape
+                            generation_inputs['pixel_values'] = pv.reshape(batch * num_imgs, c, h, w)
+                            logger.debug(f"Reshaped pixel_values from {pv.shape} to {generation_inputs['pixel_values'].shape}")
+
                     logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images, image_sizes)")
                 else:
                     # Keep all inputs for LLaVA-1.5
