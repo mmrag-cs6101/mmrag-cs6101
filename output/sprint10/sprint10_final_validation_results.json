@@ -1,0 +1,163 @@
+{
+  "overall_accuracy": 0.05,
+  "overall_confidence_interval": [
+    0.013820377146101098,
+    0.165041708179252
+  ],
+  "total_questions": 40,
+  "total_correct": 2,
+  "target_achieved": "False",
+  "target_range": [
+    0.53,
+    0.59
+  ],
+  "scenario_results": {
+    "angle": {
+      "scenario_type": "angle",
+      "total_samples": 10,
+      "correct_answers": 0,
+      "accuracy": 0.0,
+      "confidence_interval_95": [
+        0.0,
+        0.2775401687666165
+      ],
+      "multi_run_stats": null,
+      "avg_processing_time": 6.373237681388855,
+      "avg_retrieval_time": 0.7512335777282715,
+      "avg_generation_time": 5.593859124183655,
+      "avg_confidence_score": 0.72,
+      "std_confidence_score": 0.08717797887081345,
+      "error_rate": 0.0,
+      "in_target_range": "False",
+      "target_range": [
+        0.53,
+        0.59
+      ]
+    },
+    "partial": {
+      "scenario_type": "partial",
+      "total_samples": 10,
+      "correct_answers": 0,
+      "accuracy": 0.0,
+      "confidence_interval_95": [
+        0.0,
+        0.2775401687666165
+      ],
+      "multi_run_stats": null,
+      "avg_processing_time": 0.6359079122543335,
+      "avg_retrieval_time": 0.02867934703826904,
+      "avg_generation_time": 0.5842403173446655,
+      "avg_confidence_score": 0.67,
+      "std_confidence_score": 0.08999999999999998,
+      "error_rate": 0.0,
+      "in_target_range": "False",
+      "target_range": [
+        0.53,
+        0.59
+      ]
+    },
+    "scope": {
+      "scenario_type": "scope",
+      "total_samples": 10,
+      "correct_answers": 0,
+      "accuracy": 0.0,
+      "confidence_interval_95": [
+        0.0,
+        0.2775401687666165
+      ],
+      "multi_run_stats": null,
+      "avg_processing_time": 0.6692243337631225,
+      "avg_retrieval_time": 0.03797919750213623,
+      "avg_generation_time": 0.5952080965042115,
+      "avg_confidence_score": 0.65,
+      "std_confidence_score": 0.10246950765959596,
+      "error_rate": 0.0,
+      "in_target_range": "False",
+      "target_range": [
+        0.53,
+        0.59
+      ]
+    },
+    "occlusion": {
+      "scenario_type": "occlusion",
+      "total_samples": 10,
+      "correct_answers": 2,
+      "accuracy": 0.2,
+      "confidence_interval_95": [
+        0.05668094798069326,
+        0.5098431532792767
+      ],
+      "multi_run_stats": null,
+      "avg_processing_time": 0.6948590278625488,
+      "avg_retrieval_time": 0.033819150924682614,
+      "avg_generation_time": 0.6294378757476806,
+      "avg_confidence_score": 0.76,
+      "std_confidence_score": 0.04898979485566355,
+      "error_rate": 0.0,
+      "in_target_range": "False",
+      "target_range": [
+        0.53,
+        0.59
+      ]
+    }
+  },
+  "scenarios_in_target": 0,
+  "scenario_consistency": 0.0,
+  "num_evaluation_runs": 1,
+  "multi_run_statistics": null,
+  "cross_run_consistency": 1.0,
+  "performance_metrics": {
+    "avg_query_time": 2.093307238817215,
+    "p50_query_time": 0.6820416808128357,
+    "p95_query_time": 6.373237681388855,
+    "p99_query_time": 6.373237681388855,
+    "total_evaluation_time": 83.81576776504517,
+    "peak_memory_gb": 4.0611371994018555,
+    "avg_memory_gb": 4.0611371994018555,
+    "memory_utilization_percent": 25.382107496261597,
+    "memory_within_limit": true,
+    "total_queries": 40,
+    "successful_queries": 2,
+    "failed_queries": 38,
+    "success_rate": 0.05,
+    "error_rate": 0.95,
+    "queries_per_second": 0.4772371722720381,
+    "samples_per_minute": 28.634230336322286
+  },
+  "statistical_confidence": "low",
+  "baseline_comparison": null,
+  "recommendations": [
+    "CRITICAL: Accuracy 5.0% is 48.0% below target minimum (53.0%). Recommend: (1) Enhanced prompt engineering, (2) Increase retrieval top-k, (3) Lower generation temperature for more deterministic outputs.",
+    "Scenario 'angle': 0.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.",
+    "Scenario 'partial': 0.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.",
+    "Scenario 'scope': 0.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.",
+    "Scenario 'occlusion': 20.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.",
+    "\u2713 Performance within target: 2.1s per query",
+    "\u2713 Memory usage within limit: 4.1GB / 16.0GB",
+    "Low statistical confidence - recommend: (1) Additional evaluation runs, (2) Larger sample sizes, (3) More consistent optimization",
+    "NOT READY for production: Critical issues must be resolved"
+  ],
+  "production_readiness": "not_ready",
+  "timestamp": "2025-10-04T23:36:45.537038",
+  "total_validation_time": 88.90317964553833,
+  "configuration_summary": {
+    "model": {
+      "vlm": "llava-hf/llava-1.5-7b-hf",
+      "retriever": "openai/clip-vit-base-patch32",
+      "quantization": "4bit"
+    },
+    "retrieval": {
+      "top_k": 9,
+      "embedding_dim": 512
+    },
+    "generation": {
+      "max_length": 10,
+      "temperature": 0.1,
+      "top_p": 0.9
+    },
+    "performance": {
+      "memory_limit_gb": 16.0,
+      "batch_size": 4
+    }
+  }
+}

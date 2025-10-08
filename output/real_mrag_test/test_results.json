@@ -1,0 +1,680 @@
+{
+  "overall_accuracy": 1.0,
+  "total_tested": 45,
+  "total_correct": 45,
+  "scenario_stats": {
+    "Scope": {
+      "correct": 5,
+      "total": 5
+    },
+    "Obstruction": {
+      "correct": 5,
+      "total": 5
+    },
+    "Temporal": {
+      "correct": 5,
+      "total": 5
+    },
+    "Deformation": {
+      "correct": 5,
+      "total": 5
+    },
+    "Biological": {
+      "correct": 5,
+      "total": 5
+    },
+    "Angle": {
+      "correct": 5,
+      "total": 5
+    },
+    "Partial": {
+      "correct": 5,
+      "total": 5
+    },
+    "Incomplete": {
+      "correct": 5,
+      "total": 5
+    },
+    "Others": {
+      "correct": 5,
+      "total": 5
+    }
+  },
+  "test_results": [
+    {
+      "question_id": "mrag_000000",
+      "scenario": "Scope",
+      "question": "Can you identify this animal?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "silky_terrier",
+      "generated_answer": "silky_terrier",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000010",
+      "scenario": "Scope",
+      "question": "Which creature is this?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "impala",
+      "generated_answer": "impala",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000036",
+      "scenario": "Scope",
+      "question": "Can you identify which animal this is?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "mink",
+      "generated_answer": "mink",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000045",
+      "scenario": "Scope",
+      "question": "Can you identify which animal this is?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "gazelle",
+      "generated_answer": "gazelle",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000052",
+      "scenario": "Scope",
+      "question": "Can you identify this animal?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Lakeland_terrier",
+      "generated_answer": "Lakeland_terrier",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000001",
+      "scenario": "Obstruction",
+      "question": "Can you identify what kind of animal this is?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "capuchin",
+      "generated_answer": "capuchin",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000008",
+      "scenario": "Obstruction",
+      "question": "Which animal is depicted here?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "macaque",
+      "generated_answer": "macaque",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000011",
+      "scenario": "Obstruction",
+      "question": "Which creature is this?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "armadillo",
+      "generated_answer": "armadillo",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000016",
+      "scenario": "Obstruction",
+      "question": "Which animal is depicted here?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "wood_rabbit",
+      "generated_answer": "wood_rabbit",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000087",
+      "scenario": "Obstruction",
+      "question": "Which creature is this?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Great_Pyrenees",
+      "generated_answer": "Great_Pyrenees",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000002",
+      "scenario": "Temporal",
+      "question": "In which city can the building in the picture be found?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "New York City",
+      "generated_answer": "New York City",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000004",
+      "scenario": "Temporal",
+      "question": "In which city is the building shown in the picture located?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Versailles",
+      "generated_answer": "Versailles",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000005",
+      "scenario": "Temporal",
+      "question": "Which country does this cat breed come from?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Isle of Man",
+      "generated_answer": "Isle of Man",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000034",
+      "scenario": "Temporal",
+      "question": "What is the usual size range for this breed?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Medium to Large",
+      "generated_answer": "Medium to Large",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000038",
+      "scenario": "Temporal",
+      "question": "What breed does this cat belong to?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Selkirk Rex",
+      "generated_answer": "Selkirk Rex",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000003",
+      "scenario": "Deformation",
+      "question": "Can you tell me the typical engine type for this car model and the cylinder liter size?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "2.0L turbocharged inline-4",
+      "generated_answer": "2.0L turbocharged inline-4",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000026",
+      "scenario": "Deformation",
+      "question": "Can you tell me the default engine type and the cylinder liter capacity for this car model?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "4.0-liter flat-6",
+      "generated_answer": "4.0-liter flat-6",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000032",
+      "scenario": "Deformation",
+      "question": "What kind of engine comes standard in this car model, and what is the cylinder liter capacity?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "3.0L Inline-6",
+      "generated_answer": "3.0L Inline-6",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000041",
+      "scenario": "Deformation",
+      "question": "Can you identify the exact model of this car?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Lamborghini LP640",
+      "generated_answer": "Lamborghini LP640",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000067",
+      "scenario": "Deformation",
+      "question": "Can you identify the exact model of this car?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Honda Accord",
+      "generated_answer": "Honda Accord",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000006",
+      "scenario": "Biological",
+      "question": "Among these features, which one is unlikely for this fruit once it undergoes oxidation?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Its skin remains smooth and shiny.",
+      "generated_answer": "Its skin remains smooth and shiny.",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000015",
+      "scenario": "Biological",
+      "question": "Among the listed characteristics, which one is improbable for this fruit after it undergoes oxidation?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "The surface becomes covered in green mold.",
+      "generated_answer": "The surface becomes covered in green mold.",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000021",
+      "scenario": "Biological",
+      "question": "Following oxidation, which characteristic is least expected for this fruit?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "The fruit starts to ooze liquid.",
+      "generated_answer": "The fruit starts to ooze liquid.",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000040",
+      "scenario": "Biological",
+      "question": "Among these characteristics, which one is unlikely for this fruit once it undergoes oxidation?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "The fruit's interior turning green bluish color",
+      "generated_answer": "The fruit's interior turning green bluish color",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000054",
+      "scenario": "Biological",
+      "question": "Which characteristic is unlikely to appear in this fruit once it undergoes oxidation?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Its skin changing to a blueish-green color.",
+      "generated_answer": "Its skin changing to a blueish-green color.",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000007",
+      "scenario": "Angle",
+      "question": "Can you identify which animal this is?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "hartebeest",
+      "generated_answer": "hartebeest",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000012",
+      "scenario": "Angle",
+      "question": "Can you identify the exact model of this vehicle?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Chevrolet Monte Carlo Coupe 2007",
+      "generated_answer": "Chevrolet Monte Carlo Coupe 2007",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000013",
+      "scenario": "Angle",
+      "question": "Can you identify the particular model of this car?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Suzuki Aerio Sedan 2007",
+      "generated_answer": "Suzuki Aerio Sedan 2007",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000014",
+      "scenario": "Angle",
+      "question": "Can you identify this flower?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "toad lily",
+      "generated_answer": "toad lily",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000017",
+      "scenario": "Angle",
+      "question": "Can you identify the exact model of this vehicle?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Chevrolet Malibu Hybrid Sedan 2010",
+      "generated_answer": "Chevrolet Malibu Hybrid Sedan 2010",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000009",
+      "scenario": "Partial",
+      "question": "Can you identify which animal this is?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Siberian_husky",
+      "generated_answer": "Siberian_husky",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000018",
+      "scenario": "Partial",
+      "question": "Can you identify the exact model of this vehicle?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "BMW 6 Series Convertible 2007",
+      "generated_answer": "BMW 6 Series Convertible 2007",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000019",
+      "scenario": "Partial",
+      "question": "Can you identify the exact model and type of this car?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Suzuki Aerio Sedan 2007",
+      "generated_answer": "Suzuki Aerio Sedan 2007",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000023",
+      "scenario": "Partial",
+      "question": "Which animal is depicted here?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "weasel",
+      "generated_answer": "weasel",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000025",
+      "scenario": "Partial",
+      "question": "Can you identify the exact model of this car?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "BMW M3 Coupe 2012",
+      "generated_answer": "BMW M3 Coupe 2012",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000024",
+      "scenario": "Incomplete",
+      "question": "Which keys are not present?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "N",
+      "generated_answer": "N",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000043",
+      "scenario": "Incomplete",
+      "question": "Which keys are not present?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "G",
+      "generated_answer": "G",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000071",
+      "scenario": "Incomplete",
+      "question": "Among these letters, which one is nearest in alphabetical sequence to the absent key?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "G",
+      "generated_answer": "G",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000074",
+      "scenario": "Incomplete",
+      "question": "Among the given letters, which one is nearest in alphabetical sequence to the absent key?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "H",
+      "generated_answer": "H",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000076",
+      "scenario": "Incomplete",
+      "question": "Which keys are absent?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "E and S and X",
+      "generated_answer": "E and S and X",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000029",
+      "scenario": "Others",
+      "question": "From which region is this object sourced?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Africa",
+      "generated_answer": "Africa",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000037",
+      "scenario": "Others",
+      "question": "From which region is this object sourced?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Europe",
+      "generated_answer": "Europe",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000050",
+      "scenario": "Others",
+      "question": "What is the origin region of this object?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "EastAsia",
+      "generated_answer": "EastAsia",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000057",
+      "scenario": "Others",
+      "question": "From which region is this object sourced?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "Africa",
+      "generated_answer": "Africa",
+      "is_correct": true
+    },
+    {
+      "question_id": "mrag_000064",
+      "scenario": "Others",
+      "question": "From which region is this object sourced?",
+      "choices": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "ground_truth": "WestAsia",
+      "generated_answer": "WestAsia",
+      "is_correct": true
+    }
+  ],
+  "target_range": [
+    0.53,
+    0.59
+  ],
+  "target_achieved": false
+}

@@ -17,6 +17,7 @@ import torch.nn.functional as F
 from transformers import (
     AutoProcessor,
     LlavaForConditionalGeneration,
+    LlavaOnevisionForConditionalGeneration,
     BitsAndBytesConfig,
     pipeline
 )
@@ -145,10 +146,19 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 if self.quantization_config is not None:
                     model_kwargs["quantization_config"] = self.quantization_config
 
-                self.model = LlavaForConditionalGeneration.from_pretrained(
-                    self.config.model_name,
-                    **model_kwargs
-                )
+                # Use correct model class based on model type
+                if self.is_onevision:
+                    logger.info("Using LlavaOnevisionForConditionalGeneration")
+                    self.model = LlavaOnevisionForConditionalGeneration.from_pretrained(
+                        self.config.model_name,
+                        **model_kwargs
+                    )
+                else:
+                    logger.info("Using LlavaForConditionalGeneration")
+                    self.model = LlavaForConditionalGeneration.from_pretrained(
+                        self.config.model_name,
+                        **model_kwargs
+                    )
 
                 # Set generation parameters with proper token IDs
                 if self.processor.tokenizer.pad_token_id is not None:
@@ -194,19 +204,6 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
         with self.memory_manager.memory_guard("LLaVA generation"):
             try:
-                # Construct multimodal prompt
-                # For OneVision: temporarily use only one image
-                if self.is_onevision:
-                    # Create modified context with single image for OneVision
-                    single_image_context = MultimodalContext(
-                        question=context.question,
-                        images=context.images[:1],  # Only first image
-                        choices=context.choices
-                    )
-                    prompt = self.construct_prompt(single_image_context)
-                else:
-                    prompt = self.construct_prompt(context)
-
                 # Prepare images for processing
                 # For OneVision: only prepare the first image
                 if self.is_onevision:
@@ -214,6 +211,8 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     logger.warning(f"LLaVA-OneVision: Using only first image of {len(context.images)} images (multi-image not yet supported)")
                 else:
                     images_to_prepare = context.images
+                    # Construct prompt for LLaVA-1.5
+                    prompt = self.construct_prompt(context)
 
                 images = self._prepare_images(images_to_prepare)
 
@@ -232,10 +231,25 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
                 # Process images based on model type
                 if self.is_onevision:
-                    # OneVision: Pass single image (not in a list)
+                    # OneVision: Use apply_chat_template for proper formatting
+                    # Build conversation format
+                    conversation = [
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "image"},
+                                {"type": "text", "text": f"{context.question}"}
+                            ]
+                        }
+                    ]
+
+                    # Apply chat template
+                    prompt = self.processor.apply_chat_template(conversation, add_generation_prompt=True)
+
+                    # Process with image
                     inputs = self.processor(
                         text=prompt,
-                        images=images[0],  # Single PIL Image object
+                        images=images[0],
                         return_tensors="pt"
                     )
                 else:
@@ -249,27 +263,10 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
-                # Debug: Log tensor shapes for OneVision
-                if self.is_onevision:
-                    logger.info("OneVision processor outputs:")
-                    for k, v in inputs.items():
-                        if isinstance(v, torch.Tensor):
-                            logger.info(f"  {k}: shape={v.shape}, dtype={v.dtype}")
-                        else:
-                            logger.info(f"  {k}: {type(v)}")
-
-                # Filter inputs based on model type
-                # LLaVA-OneVision doesn't accept batch_num_images or image_sizes
-                # LLaVA-1.5 accepts both
-                if self.is_onevision:
-                    # Remove incompatible parameters for OneVision (uses SiglipVisionModel)
-                    excluded_keys = {'batch_num_images', 'image_sizes'}
-                    generation_inputs = {k: v for k, v in inputs.items() if k not in excluded_keys}
-                    logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images, image_sizes)")
-                else:
-                    # Keep all inputs for LLaVA-1.5
-                    generation_inputs = inputs
-                    logger.debug("Using LLaVA-1.5 compatible inputs")
+                # OneVision model handles inputs directly, no filtering needed
+                # LLaVA-1.5 may have different input keys, but AutoProcessor handles it
+                generation_inputs = inputs
+                logger.debug(f"Using {'OneVision' if self.is_onevision else 'LLaVA-1.5'} model with native input handling")
 
                 # Generate response
                 logger.debug(f"Generating response for prompt length: {len(prompt)}")

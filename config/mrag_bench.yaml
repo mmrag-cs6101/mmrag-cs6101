@@ -5,13 +5,13 @@
 
 model:
   # Model selection: "llava-1.5-7b" (baseline), "llava-onevision-7b" (improved)
-  model_type: "llava-1.5-7b"
+  model_type: "llava-onevision-7b"
 
   # Model paths (mapped from model_type)
   vlm_name: "llava-hf/llava-1.5-7b-hf"
   retriever_name: "openai/clip-vit-base-patch32"
 
-  quantization: "8bit"  # Options: "4bit" (memory efficient), "8bit" (balanced), "none" (full precision)
+  quantization: "4bit"  # Options: "4bit" (memory efficient), "8bit" (balanced), "none" (full precision)
   max_memory_gb: 14.0
   device: "cuda"
   torch_dtype: "float16"

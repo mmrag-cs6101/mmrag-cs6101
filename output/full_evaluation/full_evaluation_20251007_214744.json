@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-10-07T21:47:44.642338",
+  "overall_accuracy": 0.4138950480413895,
+  "total_samples": 1353,
+  "correct_answers": 560,
+  "target_range": [
+    0.53,
+    0.59
+  ],
+  "target_achieved": false,
+  "evaluation_time_seconds": 1040.6127347946167,
+  "avg_time_per_sample": 0.7691151033219635,
+  "scenario_results": {
+    "scope": {
+      "accuracy": 0.4228395061728395,
+      "correct": 137,
+      "total": 324
+    },
+    "occlusion": {
+      "accuracy": 0.49074074074074076,
+      "correct": 53,
+      "total": 108
+    },
+    "partial": {
+      "accuracy": 0.4164989939637827,
+      "correct": 207,
+      "total": 497
+    },
+    "angle": {
+      "accuracy": 0.38443396226415094,
+      "correct": 163,
+      "total": 424
+    }
+  },
+  "configuration": {
+    "model": "llava-hf/llava-1.5-7b-hf",
+    "retriever": "openai/clip-vit-base-patch32",
+    "quantization": "4bit",
+    "num_gt_images_used": 3,
+    "max_length": 10,
+    "temperature": 0.1
+  }
+}
