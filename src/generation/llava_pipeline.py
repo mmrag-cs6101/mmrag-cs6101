@@ -208,7 +208,14 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                     prompt = self.construct_prompt(context)
 
                 # Prepare images for processing
-                images = self._prepare_images(context.images)
+                # For OneVision: only prepare the first image
+                if self.is_onevision:
+                    images_to_prepare = context.images[:1]
+                    logger.warning(f"LLaVA-OneVision: Using only first image of {len(context.images)} images (multi-image not yet supported)")
+                else:
+                    images_to_prepare = context.images
+
+                images = self._prepare_images(images_to_prepare)
 
                 if not images:
                     # No valid images, return a default response
@@ -223,30 +230,33 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 # Use the processor's unified call method
                 import torch
 
-                # Ensure images is a list
-                image_list = images if isinstance(images, list) else [images]
-
-                # LLaVA-OneVision processes images differently than LLaVA-1.5
+                # Process images based on model type
                 if self.is_onevision:
-                    # TEMPORARY: OneVision multi-image support is complex
-                    # Use only the first image for now to verify the model works
-                    # TODO: Implement proper multi-image support for OneVision
-                    logger.warning(f"LLaVA-OneVision: Using only first image of {len(image_list)} images (multi-image not yet supported)")
+                    # OneVision: Pass single image (not in a list)
                     inputs = self.processor(
                         text=prompt,
-                        images=image_list[0],  # Single image only
+                        images=images[0],  # Single PIL Image object
                         return_tensors="pt"
                     )
                 else:
-                    # LLaVA-1.5: Pass images as flat list [img1, img2, img3]
+                    # LLaVA-1.5: Pass images as list
                     inputs = self.processor(
                         text=prompt,
-                        images=image_list,
+                        images=images,  # List of PIL Images
                         return_tensors="pt"
                     )
 
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
+
+                # Debug: Log tensor shapes for OneVision
+                if self.is_onevision:
+                    logger.info("OneVision processor outputs:")
+                    for k, v in inputs.items():
+                        if isinstance(v, torch.Tensor):
+                            logger.info(f"  {k}: shape={v.shape}, dtype={v.dtype}")
+                        else:
+                            logger.info(f"  {k}: {type(v)}")
 
                 # Filter inputs based on model type
                 # LLaVA-OneVision doesn't accept batch_num_images or image_sizes
