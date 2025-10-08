@@ -64,6 +64,9 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         self.processor = None
         self.model_loaded = False
 
+        # Detect model type for compatibility handling
+        self.is_onevision = "onevision" in config.model_name.lower()
+
         # Quantization configuration for 4-bit
         self.quantization_config = self._create_quantization_config()
 
@@ -224,12 +227,23 @@ class LLaVAGenerationPipeline(GenerationPipeline):
                 # Move all inputs to device
                 inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 
+                # Filter inputs based on model type
+                # LLaVA-OneVision doesn't accept batch_num_images, but LLaVA-1.5 does
+                if self.is_onevision:
+                    # Remove batch_num_images for OneVision
+                    generation_inputs = {k: v for k, v in inputs.items() if k != 'batch_num_images'}
+                    logger.debug("Using LLaVA-OneVision compatible inputs (filtered batch_num_images)")
+                else:
+                    # Keep all inputs for LLaVA-1.5
+                    generation_inputs = inputs
+                    logger.debug("Using LLaVA-1.5 compatible inputs")
+
                 # Generate response
                 logger.debug(f"Generating response for prompt length: {len(prompt)}")
 
                 with torch.inference_mode():
                     output_ids = self.model.generate(
-                        **inputs,
+                        **generation_inputs,
                         **self.generation_kwargs
                     )
 
