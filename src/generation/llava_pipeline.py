@@ -195,7 +195,17 @@ class LLaVAGenerationPipeline(GenerationPipeline):
         with self.memory_manager.memory_guard("LLaVA generation"):
             try:
                 # Construct multimodal prompt
-                prompt = self.construct_prompt(context)
+                # For OneVision: temporarily use only one image
+                if self.is_onevision:
+                    # Create modified context with single image for OneVision
+                    single_image_context = MultimodalContext(
+                        question=context.question,
+                        images=context.images[:1],  # Only first image
+                        choices=context.choices
+                    )
+                    prompt = self.construct_prompt(single_image_context)
+                else:
+                    prompt = self.construct_prompt(context)
 
                 # Prepare images for processing
                 images = self._prepare_images(context.images)
@@ -218,11 +228,13 @@ class LLaVAGenerationPipeline(GenerationPipeline):
 
                 # LLaVA-OneVision processes images differently than LLaVA-1.5
                 if self.is_onevision:
-                    # OneVision: Pass images as a nested list [[img1, img2, img3]]
-                    # This tells the processor these are multiple images for one prompt
+                    # TEMPORARY: OneVision multi-image support is complex
+                    # Use only the first image for now to verify the model works
+                    # TODO: Implement proper multi-image support for OneVision
+                    logger.warning(f"LLaVA-OneVision: Using only first image of {len(image_list)} images (multi-image not yet supported)")
                     inputs = self.processor(
                         text=prompt,
-                        images=[image_list],  # Nested list for multi-image input
+                        images=image_list[0],  # Single image only
                         return_tensors="pt"
                     )
                 else:
