@@ -12,6 +12,7 @@ from .interface import (
     MultimodalContext
 )
 from .llava_pipeline import LLaVAGenerationPipeline
+from .llava_enhanced_pipeline import EnhancedLLaVAPipeline
 from .factory import GenerationPipelineFactory, create_llava_pipeline
 
 __all__ = [
@@ -20,6 +21,7 @@ __all__ = [
     "GenerationResult",
     "MultimodalContext",
     "LLaVAGenerationPipeline",
+    "EnhancedLLaVAPipeline",
     "GenerationPipelineFactory",
     "create_llava_pipeline"
 ]

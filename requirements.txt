@@ -14,8 +14,7 @@ Pillow>=9.0.0
 opencv-python>=4.7.0
 
 # Vector Database and Similarity Search
-faiss-gpu==1.7.2
-
+faiss-cpu==1.7.2
 # Data Processing
 numpy>=1.21.0,<2.0
 pandas>=1.5.0
