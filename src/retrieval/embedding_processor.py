@@ -15,6 +15,7 @@ import numpy as np
 from PIL import Image
 import torch
 from tqdm import tqdm
+import traceback
 
 from .clip_retriever import CLIPRetriever
 from .interface import RetrievalConfig
@@ -150,7 +151,7 @@ class EmbeddingProcessor:
                         self._save_cache()
 
         except Exception as e:
-            logger.error(f"Error during batch processing: {e}")
+            logger.error(f"Error during batch processing: {traceback.format_exc()}")
             # Save progress before re-raising
             self._save_cache()
             raise

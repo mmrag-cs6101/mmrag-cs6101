@@ -28,6 +28,7 @@ class RetrievalResult:
 class RetrievalConfig:
     """Configuration for retrieval pipeline."""
     model_name: str = "openai/clip-vit-base-patch32"
+    model_name_sam: str = "sam2.1_b.pt"
     embedding_dim: int = 512
     top_k: int = 5
     similarity_threshold: float = 0.0

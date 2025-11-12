@@ -15,7 +15,7 @@ from PIL import Image
 
 from .config import MRAGConfig
 from .dataset import MRAGDataset, Sample
-from .retrieval import CLIPRetriever, RetrievalConfig
+from .retrieval import SAMRetriever, CLIPRetriever, RetrievalConfig
 from .generation import LLaVAGenerationPipeline, GenerationConfig, MultimodalContext, GenerationResult
 from .utils.memory_manager import MemoryManager
 from .utils.error_handling import handle_errors, MRAGError, ErrorCategory, ErrorSeverity
@@ -136,7 +136,7 @@ class MRAGPipeline:
 
         logger.info(f"Dataset initialized with {validation_results['total_samples']} samples")
 
-    def _encode_corpus_in_batches(self, corpus_paths: List[str], batch_size: int = 32) -> np.ndarray:
+    def _encode_corpus_in_batches(self, corpus_paths: List[str], batch_size: int = 16) -> np.ndarray:
         """
         Encode corpus images in batches to avoid memory issues.
 
@@ -198,6 +198,7 @@ class MRAGPipeline:
             # Create retrieval configuration
             retrieval_config = RetrievalConfig(
                 model_name=self.config.model.retriever_name,
+                model_name_sam=self.config.model.sam_model_name,
                 embedding_dim=self.config.retrieval.embedding_dim,
                 top_k=self.config.retrieval.top_k,
                 similarity_threshold=self.config.retrieval.similarity_threshold,
@@ -205,7 +206,13 @@ class MRAGPipeline:
                 device=self.config.model.device
             )
 
-            self.retriever = CLIPRetriever(retrieval_config)
+            # Choose retriever type
+            if self.config.retrieval.retriever.lower() == "sam":
+                self.retriever = SAMRetriever(retrieval_config)
+            elif self.config.retrieval.retriever.lower() == "clip":
+                self.retriever = CLIPRetriever(retrieval_config)
+            else:
+                raise MRAGError(f"Unsupported retriever type: {self.config.retrieval.retriever}")
 
             # Build index if not cached
             # Note: Model loads automatically when needed (lazy loading)

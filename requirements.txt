@@ -1,20 +1,23 @@
 # Deep Learning Framework
-torch>=2.0.0
-torchvision>=0.15.0
-torchaudio>=2.0.0
+# torch>=2.0.0
+# torchvision>=0.15.0
+# torchaudio>=2.0.0
 
 # Transformers and Model Libraries
 transformers>=4.30.0
 accelerate>=0.20.0
 bitsandbytes>=0.39.0
 sentencepiece>=0.1.99  # Required for LLaMA tokenizer
+ultralytics # For SAM model
 
 # Vision and Multimodal
 Pillow>=9.0.0
-opencv-python>=4.7.0
+opencv-python-headless>=4.7.0
 
 # Vector Database and Similarity Search
-faiss-cpu==1.7.2
+faiss-gpu
+# faiss-gpu==1.7.2
+
 # Data Processing
 numpy>=1.21.0,<2.0
 pandas>=1.5.0

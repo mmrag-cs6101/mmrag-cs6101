@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-**Overall Accuracy:** 5.0% (95% CI: [1.4%, 16.5%])
+**Overall Accuracy:** 2.5% (95% CI: [0.4%, 12.9%])
 **Target Range:** 53.0% - 59.0%
 **Target Achieved:** ✗ NO
 **Total Questions:** 40
-**Total Correct:** 2
+**Total Correct:** 1
 
 **Evaluation Runs:** 1
 **Statistical Confidence:** LOW
@@ -21,7 +21,7 @@
 | ANGLE      |   0.0% | [0.0%, 27.8%] |      10 | False     | ✗      |
 | PARTIAL    |   0.0% | [0.0%, 27.8%] |      10 | False     | ✗      |
 | SCOPE      |   0.0% | [0.0%, 27.8%] |      10 | False     | ✗      |
-| OCCLUSION  |  20.0% | [5.7%, 51.0%] |      10 | False     | ✗      |
+| OCCLUSION  |  10.0% | [1.8%, 40.4%] |      10 | False     | ✗      |
 
 **Scenarios in Target:** 0/4
 **Scenario Consistency:** 0.0%
@@ -31,22 +31,22 @@
 ## Performance Metrics
 
 **Timing:**
-- Average Query Time: 2.09s
-- P50 Query Time: 0.68s
-- P95 Query Time: 6.37s
-- P99 Query Time: 6.37s
-- Total Evaluation Time: 83.8s
+- Average Query Time: 2.54s
+- P50 Query Time: 2.05s
+- P95 Query Time: 4.27s
+- P99 Query Time: 4.27s
+- Total Evaluation Time: 101.7s
 
 **Memory:**
-- Peak Memory: 4.06GB
-- Average Memory: 4.06GB
-- Memory Utilization: 25.4%
+- Peak Memory: 5.95GB
+- Average Memory: 5.95GB
+- Memory Utilization: 37.2%
 - Within Limit: ✓ YES
 
 **Reliability:**
-- Success Rate: 5.0%
-- Error Rate: 95.0%
-- Queries Per Second: 0.48
+- Success Rate: 2.5%
+- Error Rate: 97.5%
+- Queries Per Second: 0.39
 
 ---
 
@@ -58,7 +58,7 @@ Single evaluation run - no multi-run statistics available.
 
 ## Recommendations
 
-1. CRITICAL: Accuracy 5.0% is 48.0% below target minimum (53.0%). Recommend: (1) Enhanced prompt engineering, (2) Increase retrieval top-k, (3) Lower generation temperature for more deterministic outputs.
+1. CRITICAL: Accuracy 2.5% is 50.5% below target minimum (53.0%). Recommend: (1) Enhanced prompt engineering, (2) Increase retrieval top-k, (3) Lower generation temperature for more deterministic outputs.
 
 2. Scenario 'angle': 0.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.
 
@@ -66,11 +66,11 @@ Single evaluation run - no multi-run statistics available.
 
 4. Scenario 'scope': 0.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.
 
-5. Scenario 'occlusion': 20.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.
+5. Scenario 'occlusion': 10.0% outside target. Apply scenario-specific prompt optimization and parameter tuning.
 
-6. ✓ Performance within target: 2.1s per query
+6. ✓ Performance within target: 2.5s per query
 
-7. ✓ Memory usage within limit: 4.1GB / 16.0GB
+7. ✓ Memory usage within limit: 5.9GB / 16.0GB
 
 8. Low statistical confidence - recommend: (1) Additional evaluation runs, (2) Larger sample sizes, (3) More consistent optimization
 
@@ -82,7 +82,7 @@ Single evaluation run - no multi-run statistics available.
 ## Configuration Summary
 
 **Model Configuration:**
-- VLM: llava-hf/llava-1.5-7b-hf
+- VLM: llava-hf/llava-onevision-qwen2-7b-ov-hf
 - Retriever: openai/clip-vit-base-patch32
 - Quantization: 4bit
 
@@ -101,5 +101,5 @@ Single evaluation run - no multi-run statistics available.
 
 ---
 
-**Report Generated:** 2025-10-04T23:36:45.537038
-**Total Validation Time:** 88.9s
+**Report Generated:** 2025-11-12T00:50:08.317595
+**Total Validation Time:** 104.2s

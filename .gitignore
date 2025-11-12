@@ -54,6 +54,7 @@ model_cache/
 *.pth
 *.bin
 *.safetensors
+*.pt
 
 # RAG storage
 rag_storage/

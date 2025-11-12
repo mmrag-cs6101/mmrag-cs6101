@@ -17,6 +17,7 @@ class ModelConfig:
     model_type: str = "llava-1.5-7b"  # Options: "llava-1.5-7b", "llava-onevision-7b"
     vlm_name: str = "llava-hf/llava-1.5-7b-hf"
     retriever_name: str = "openai/clip-vit-base-patch32"
+    sam_model_name: str = "sam2.1_b.pt"
     quantization: str = "4bit"
     max_memory_gb: float = 14.0
     device: str = "cuda"
@@ -47,6 +48,7 @@ class DatasetConfig:
 @dataclass
 class RetrievalConfig:
     """Retrieval configuration parameters."""
+    retriever: str = "sam"  # Options: "clip", "sam"
     embedding_dim: int = 512
     top_k: int = 5
     similarity_threshold: float = 0.0

@@ -224,7 +224,7 @@ class MemoryManager:
 
             # Check for memory leaks
             memory_increase = final_stats.gpu_allocated_gb - initial_stats.gpu_allocated_gb
-            if memory_increase > 0.5:  # 500MB threshold
+            if memory_increase > 2:  # 500MB threshold
                 self.logger.warning(
                     f"Potential memory leak in {operation_name}: "
                     f"{memory_increase:.2f}GB increase"

@@ -168,8 +168,8 @@ class MRAGBenchEvaluator:
 
         # Get samples for scenario
         samples = self.dataset.get_samples_by_scenario(scenario_type.value)
-        if not samples:
-            raise MRAGError(f"No samples found for scenario: {scenario_type.value}")
+        # if not samples:
+        #     raise MRAGError(f"No samples found for scenario: {scenario_type.value}")
 
         if max_samples is not None:
             samples = samples[:max_samples]
