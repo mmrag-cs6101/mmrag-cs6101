@@ -55,6 +55,7 @@ model_cache/
 *.bin
 *.safetensors
 *.pt
+*.npy
 
 # RAG storage
 rag_storage/

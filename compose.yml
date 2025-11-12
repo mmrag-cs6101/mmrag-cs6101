@@ -1,0 +1,14 @@
+services:
+  mrag:
+    build: .
+    image: mrag:latest
+    container_name: mrag_dev
+    volumes:
+      - .:/app:rw
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
